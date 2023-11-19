@@ -3,15 +3,15 @@ import logo from "../assets/Indeed-Logo-2004.png";
 import { CiMenuFries } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
   const [open, setOpne] = useState(false);
   return (
     <nav>
-      {/* for dectop */}
+      {/* for decstop */}
       <div
-        className={`lg:flex justify-around items-center bg-[#ebe4e4] hidden `}
+        className={`fixed w-full z-10 lg:flex justify-around items-center bg-[#ebe4e4] hidden text-slate-800`}
       >
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-5 items-center">
