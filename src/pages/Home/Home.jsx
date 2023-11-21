@@ -6,17 +6,16 @@ import Recruiting from "../../components/Home/Recruiting";
 import Testimonials from "../../components/Home/Testimonials";
 
 const Home = () => {
-   
-    return (
-        <div>
-            <HeaderSection></HeaderSection>   
-            <PopularJobCategories></PopularJobCategories>
-            <Testimonials></Testimonials>
-            <ImageNumber></ImageNumber>
-            <DownloadSection></DownloadSection>
-            <Recruiting></Recruiting>
-        </div>
-    );
+  return (
+    <div>
+      <HeaderSection></HeaderSection>
+      <PopularJobCategories></PopularJobCategories>
+      <Testimonials></Testimonials>
+      <ImageNumber></ImageNumber>
+      <DownloadSection></DownloadSection>
+      <Recruiting></Recruiting>
+    </div>
+  );
 };
 
 export default Home;

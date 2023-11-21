@@ -5,35 +5,35 @@ import fiverr from "../../assets/fiverr.png";
 import { AiOutlineCheck } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import CountUp from "react-countup";
+
 const ImageNumber = () => {
   return (
-    <div className="max-w-7xl mx-auto relative w-full mt-28 mb-32 ">
-      <div className="flex flex-col lg:flex-row items-start gap-20 justify-between">
+    <div className="max-w-7xl mx-auto relative w-full mt-20 mb-32 ">
+      <div className="flex flex-col lg:flex-row items-start lg:gap-20 justify-between">
         <img
           data-aos="fade-right"
           className="rounded-lg mx-auto lg:mx-0 w-[90%] lg:w-[500px] lg:h-[600px] object-cover"
           src={img}
           alt=""
         />
-        <div data-aos="fade-left" className="lg:w-[50%] px-4">
-          <h1 className="text-2xl lg:text-4xl font-semibold">
+        <div className="p-3 mb-2 mt-20 lg:mt-0">
+          <h1 className=" lg:text-4xl font-semibold">
             Millions of Jobs. Find the one <br /> that suits you.
           </h1>
-          {/* ============================ */}
-          <p className="mt-6 text-teal-600">
-            Search all the open positions on the web. Get your own <br />{" "}
-            personalized salary estimate. Read reviews on over 600,000 <br />{" "}
-            companies worldwide.
+
+          <p className=" text-teal-600 ">
+            Search all the open positions on the web. Get your own personalized
+            salary estimate. Read reviews on over 600,000 companies worldwide.
           </p>
-          {/* ============================ */}
+
           <div className="">
-            <div className="flex gap-3 items-center mt-3 text-teal-700">
+            <div className="flex items-center mt-3 text-teal-700">
               <span>
                 <AiOutlineCheck></AiOutlineCheck>
               </span>
               <h1>Bring to the table win-win survival</h1>
             </div>
-            <div className="flex gap-3 items-center mt-3 text-teal-700">
+            <div className="flex items-center mt-3 text-teal-700">
               <span>
                 <AiOutlineCheck></AiOutlineCheck>
               </span>
@@ -85,27 +85,33 @@ const ImageNumber = () => {
         </div>
       </div>
       {/* ------------------------- */}
-      <div className="mt-32 flex flex-col lg:flex-row gap-12 lg:gap-0 lg:justify-around">
+      <div className="mt-12 flex flex-col lg:flex-row gap-12 lg:gap-0 lg:justify-around">
         <div className="">
           <div className="flex items-center justify-center text-3xl font-semibold">
             <CountUp end={4} />
             <h1>M</h1>
           </div>
-          <h1 className="text-teal-700 text-center lg:text-left mt-3">4 million daily active users</h1>
+          <h1 className="text-teal-700 text-center lg:text-left mt-3">
+            4 million daily active users
+          </h1>
         </div>
         <div className="">
           <div className="flex items-center justify-center text-3xl font-semibold">
             <CountUp end={12} />
             <h1>k</h1>
           </div>
-          <h1 className="text-teal-700 text-center lg:text-left mt-3">Over 12k open job positions</h1>
+          <h1 className="text-teal-700 text-center lg:text-left mt-3">
+            Over 12k open job positions
+          </h1>
         </div>
         <div className="">
           <div className="flex items-center justify-center text-3xl font-semibold">
             <CountUp end={20} />
             <h1>M</h1>
           </div>
-          <h1 className="text-teal-700 text-center lg:text-left mt-3">Over 20 million stories shared</h1>
+          <h1 className="text-teal-700 text-center lg:text-left mt-3">
+            Over 20 million stories shared
+          </h1>
         </div>
       </div>
     </div>

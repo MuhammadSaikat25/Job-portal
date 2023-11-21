@@ -8,7 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 
 const HeaderSection = () => {
   return (
-    <div className="lg:flex items-center justify-around py-28 bg-[#ebe4e4]">
+    <div className="lg:flex items-center justify-around py-20 bg-[#ebe4e4] mb-12">
       <div className="">
         <p className=" lg:text-5xl text-slate-900 text-center lg:text-left">
           {" "}
@@ -50,7 +50,7 @@ const HeaderSection = () => {
           </div>
         </form>
         {/* =================== popular serach */}
-        <div className="lg:flex mt-5 text-gray-500">
+        <div className="lg:flex mt-5 text-gray-500 p-5">
           <h1 className="text-gray-600 font-semibold">Popular Searches :</h1>
           <p className="lg:pl-4">
             Designer, Developer, Web, IOS, PHP, Senior, Engineer,
@@ -60,7 +60,10 @@ const HeaderSection = () => {
       {/* ====================== image for lg: device */}
       <div className="relative hidden lg:block ">
         <img className=" lg:w-[500px]" src={img} alt="" />
-        <div data-aos="zoom-in" className="bg-slate-100 absolute top-7 -left-12 p-2 rounded-md flex items-center gap-4 w-fit">
+        <div
+          data-aos="zoom-in"
+          className="bg-slate-100 absolute top-7 -left-12 p-2 rounded-md flex items-center gap-4 w-fit"
+        >
           <span className="border bg-orange-300 p-2 rounded">
             <CgMail size={25} color="black" className=""></CgMail>
           </span>
@@ -69,7 +72,10 @@ const HeaderSection = () => {
           </h1>
         </div>
         {/* ==================== */}
-        <div data-aos="zoom-in" className="bg-slate-50 absolute top-28  -right-10 px-7 py-4 rounded-md flex flex-col gap-3 w-fit">
+        <div
+          data-aos="zoom-in"
+          className="bg-slate-50 absolute top-28  -right-10 px-7 py-4 rounded-md flex flex-col gap-3 w-fit"
+        >
           <h1>10k+ Candidates</h1>
           <div className="relative">
             <img
@@ -87,14 +93,19 @@ const HeaderSection = () => {
               src={img3}
               alt=""
             />
-            <span className="absolute bg-slate-400 p-1 rounded-full top-1 right-1"><IoMdAdd color="black" size={25}></IoMdAdd></span>
+            <span className="absolute bg-slate-400 p-1 rounded-full top-1 right-1">
+              <IoMdAdd color="black" size={25}></IoMdAdd>
+            </span>
           </div>
         </div>
-        <div data-aos="zoom-in" className="bg-slate-50 absolute bottom-10 p-3 rounded-md w-fit">
-            <div className="text-center  p-3">
-                <h1 className="text-slate-950 font-semibold">Upload your CV</h1>
-                <h1>It only takes a few seconds</h1>
-            </div>
+        <div
+          data-aos="zoom-in"
+          className="bg-slate-50 absolute bottom-10 p-3 rounded-md w-fit"
+        >
+          <div className="text-center  p-3">
+            <h1 className="text-slate-950 font-semibold">Upload your CV</h1>
+            <h1>It only takes a few seconds</h1>
+          </div>
         </div>
       </div>
     </div>
