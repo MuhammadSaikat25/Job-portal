@@ -1,6 +1,7 @@
 import DownloadSection from "../../components/Home/DownloadSection";
 import HeaderSection from "../../components/Home/HeaderSection";
 import PopularJobCategories from "../../components/Home/PopularJobCategories";
+import Recruiting from "../../components/Home/Recruiting";
 import Testimonials from "../../components/Home/Testimonials";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
             <PopularJobCategories></PopularJobCategories>
             <Testimonials></Testimonials>
             <DownloadSection></DownloadSection>
+            <Recruiting></Recruiting>
         </div>
     );
 };
