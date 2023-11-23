@@ -14,13 +14,13 @@ const LogIn = () => {
           <img className="w-[70px]" src={logo} alt="" />
           <div className="flex items-center gap-1">
             <h1 className="text-slate-500">Don't have an account?</h1>
-            <Link className="text-blue-500">sing Up</Link>
+            <Link to={'/register'} className="text-blue-500">sing Up</Link>
           </div>
         </div>
         <div className="flex justify-center mt-5">
           <div className="">
             <h1 className="text-2xl font-semibold text-center">
-              Lonin to Indeed
+              Login to Indeed
             </h1>
             <h1 className="text-stone-500 mt-3">
               Now you can apply for your deram job here i Indeed
