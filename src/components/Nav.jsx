@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../assets/Indeed-Logo-2004.png";
 import { CiMenuFries } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
@@ -6,12 +6,14 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { useState } from "react";
 
 const Nav = () => {
-  const [open, setOpne] = useState(false);
+  const [open, setOpen] = useState(false);
+  const location=useLocation()
+
   return (
     <nav className="relative">
-      {/* for decstop */}
+      {/* for desktop */}
       <div
-        className={`fixed w-full z-10 lg:flex justify-around items-center bg-[#ebe4e4] hidden text-slate-800`}
+        className={`fixed w-full z-10 lg:flex justify-around items-center ${location.pathname==='/dashboard/profile'?'bg-gray-600':"bg-[#ebe4e4]"} hidden text-slate-800`}
       >
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-5 items-center">
@@ -22,11 +24,20 @@ const Nav = () => {
         </div>
         <div className="flex gap-5 items-center">
           <NavLink>Upload your CV</NavLink>
-          <Link to={'/login'} className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500">
+          <Link
+            to={"/login"}
+            className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
+          >
             Login/Register
           </Link>
           <NavLink className="bg-blue-600 px-5 py-1 rounded-md text-white">
             Job Post
+          </NavLink>
+          <NavLink
+            to={"/dashboard/profile"}
+            className="bg-blue-600 px-5 py-1 rounded-md text-white"
+          >
+            Dashboard
           </NavLink>
         </div>
       </div>
@@ -40,7 +51,7 @@ const Nav = () => {
           <Link>
             <CiUser></CiUser>
           </Link>
-          <span onClick={() => setOpne(!open)}>
+          <span onClick={() => setOpen(!open)}>
             {open ? (
               <IoCloseCircleOutline></IoCloseCircleOutline>
             ) : (
@@ -58,34 +69,22 @@ const Nav = () => {
             <NavLink>Find Job</NavLink>
             <NavLink>Employers</NavLink>
             <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
-            <NavLink>Home</NavLink>
-            <NavLink>Find Job</NavLink>
-            <NavLink>Employers</NavLink>
-            <NavLink>Blog</NavLink>
+            <NavLink>Upload your CV</NavLink>
+            <Link
+              to={"/login"}
+              className="lg:bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
+            >
+              Login/Register
+            </Link>
+            <NavLink className="lg:bg-blue-600 px-5 py-1 rounded-md text-white">
+              Job Post
+            </NavLink>
+            <NavLink
+              to={"/dashboard/profile"}
+              className="lg:bg-blue-600 px-5 py-1 rounded-md text-white"
+            >
+              Dashboard
+            </NavLink>
           </div>
         </div>
       )}

@@ -1,13 +1,14 @@
-import { useState } from "react";
 import logo from "../assets/Indeed-Logo-2004.png";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
+import { useState } from "react";
 
 const Register = () => {
+
   const [userType, setUserType] = useState("");
-  const toogle = (type) => {
+  const toggle = (type) => {
     setUserType(type);
   };
   const [hidden, setHidden] = useState(false);
@@ -18,7 +19,9 @@ const Register = () => {
           <img className="w-[70px]" src={logo} alt="" />
           <div className="flex items-center gap-1">
             <h1 className="text-slate-500">Already have an account?</h1>
-            <Link to={'/login'} className="text-blue-500">sing In</Link>
+            <Link to={"/login"} className="text-blue-500">
+              sing In
+            </Link>
           </div>
         </div>
         <div className="flex justify-center mt-5">
@@ -27,7 +30,7 @@ const Register = () => {
               Register to Indeed
             </h1>
             <h1 className="text-stone-500 mt-3">
-              Now you can apply for your deram job here i Indeed
+              Now you can apply for your dream job here i Indeed
             </h1>
           </div>
         </div>
@@ -35,20 +38,20 @@ const Register = () => {
         <form className=" flex flex-col relative justify-center mt-10">
           <div className="mx-auto flex items-center gap-4 mb-10">
             <h1
-              onClick={() => toogle("Candidate")}
+              onClick={() => toggle("Candidate")}
               className={`${
                 userType === "Candidate" &&
                 "bg-orange-600 rounded duration-500 p-1 text-white"
-              } border p-1 rounded bg-sky-300 cursor-pointer`}
+              }`}
             >
               Candidate
             </h1>
             <h1
-              onClick={() => toogle("Employer")}
+              onClick={() => toggle("Employer")}
               className={`${
                 userType === "Employer" &&
                 "bg-orange-600 rounded duration-500 p-1 text-white"
-              } border p-1 rounded bg-sky-300 cursor-pointer`}
+              } `}
             >
               Employer
             </h1>
@@ -79,7 +82,7 @@ const Register = () => {
               type="submit"
               className="bg-blue-600 p-2 rounded text-white"
             >
-              Login
+              Register
             </button>
           </div>
         </form>

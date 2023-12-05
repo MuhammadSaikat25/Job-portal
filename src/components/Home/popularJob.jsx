@@ -8,38 +8,38 @@ const jobs=[
     {
         id:1,
         name:'Accounting / Finance',
-        pogition:"(2 open positions)",
-        icone:`${img}`
+        position:"(2 open positions)",
+        icon:`${img}`
     },
     {
         id:2,
         name:"Desing",
-        pogition:"(43 opne position)",
-        icone:`${img2}`
+        position:"(43 opne position)",
+        icon:`${img2}`
     },
     {
         id:3,
         name:"Marketing",
-        pogition:"(25 open position)",
-        icone:`${img3}`
+        position:"(25 open position)",
+        icon:`${img3}`
     },
     {
         id:4,
         name:"Development",
-        pogition:"(134 open position)",
-        icone:`${img4}`
+        position:"(134 open position)",
+        icon:`${img4}`
     },
     {
         id:5,
         name:"Human Resource",
-        pogition:"(56 open pogition)",
-        icone:`${img5}`
+        position:"(56 open pogition)",
+        icon:`${img5}`
     },
     {
         id:6,
         name:"Automotive Jobs",
-        pogition:"(134 open pogition)",
-        icone:`${img6}`
+        position:"(134 open pogition)",
+        icon:`${img6}`
     }
 ]
 export default jobs

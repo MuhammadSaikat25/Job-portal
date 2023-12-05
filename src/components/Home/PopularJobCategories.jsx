@@ -19,12 +19,12 @@ const PopularJobCategories = () => {
           >
             <img
               className={`w-[70px] h-[70px] object-cover bg-blue-300 p-1 rounded-md`}
-              src={data.icone}
+              src={data.icon}
               alt=""
             />
             <div className="">
               <h1 className="lg:text-2xl font-semibold">{data.name}</h1>
-              <h1 className="text-teal-700">{data.pogition}</h1>
+              <h1 className="text-teal-700">{data.position}</h1>
             </div>
           </div>
         ))}
