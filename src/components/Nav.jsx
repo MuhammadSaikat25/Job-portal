@@ -23,7 +23,7 @@ const Nav = () => {
           <NavLink>Blog</NavLink>
         </div>
         <div className="flex gap-5 items-center">
-          <NavLink className={`text-violet-600`}>Upload your CV</NavLink>
+          <NavLink to={'/dashboard/myProfile'} className={`text-violet-600`}>Upload your CV</NavLink>
           <Link
             to={"/login"}
             className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
@@ -34,7 +34,7 @@ const Nav = () => {
             Job Post
           </NavLink>
           <NavLink
-            to={"/dashboard/overview"}
+            to={"/dashboard/candidateOverview"}
             className="bg-blue-600 px-5 py-1 rounded-md text-white"
           >
             Dashboard
@@ -63,13 +63,13 @@ const Nav = () => {
 
       {/* --------------------------for mobile------------------------- */}
       {open && (
-        <div className="lg:hidden fixed top-0 gap-5 text-center bg-slate-900 z-20 h-full w-[50%]">
-          <div className="flex gap-14 flex-col text-white justify-between h-full overflow-y-scroll">
+        <div className="lg:hidden fixed top-0  text-center bg-slate-900 z-20 h-full w-[50%]">
+          <div className="flex gap-14 flex-col text-white justify-around h-full ">
             <NavLink>Home</NavLink>
             <NavLink>Find Job</NavLink>
             <NavLink>Employers</NavLink>
             <NavLink>Blog</NavLink>
-            <NavLink>Upload your CV</NavLink>
+            <NavLink to={'/dashboard/myProfile'}>Upload your CV</NavLink>
             <Link
               to={"/login"}
               className="lg:bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
@@ -79,7 +79,7 @@ const Nav = () => {
             <NavLink className="lg:bg-blue-600 px-5 py-1 rounded-md text-white">
               Job Post
             </NavLink>
-            <NavLink
+            <NavLink onClick={() => setOpen(!open)}
               to={"/dashboard/overview"}
               className="lg:bg-blue-600 px-5 py-1 rounded-md text-white"
             >
