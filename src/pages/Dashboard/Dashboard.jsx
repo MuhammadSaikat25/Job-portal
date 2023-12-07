@@ -4,12 +4,24 @@ import Nav from "../../components/Nav";
 
 const Dashboard = () => {
   return (
-    <div className="flex ">
-      <div className="h-screen">
-        <DashboardNav></DashboardNav>
+    <div className="">
+      <div className="hidden lg:flex">
+        <div className="h-screen">
+          <div className="">
+            <DashboardNav></DashboardNav>
+          </div>
+          <div className=""></div>
+        </div>
+        <div className="bg-[#ececec] flex-1 p-4 ">
+          <Outlet></Outlet>
+        </div>
       </div>
-      <div className="bg-[#ececec] flex-1 p-4 ">
-        <Outlet></Outlet>
+      {/*  ------------------------- Small Device---------------------- */}
+      <div className="block lg:hidden">
+        <Nav></Nav>
+        <div className="mt-12 lg:mt-12">
+          <Outlet></Outlet>
+        </div>
       </div>
     </div>
   );

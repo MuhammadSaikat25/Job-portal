@@ -10,6 +10,7 @@ import Register from "./components/Register.jsx";
 import AuthProvider from "./Firebase/AuthProvider.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import DashboardProfile from "./pages/Dashboard/DashboardProfile.jsx";
+import EmployerMyProfile from "./pages/Dashboard/Employer/EmployerMyProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path:'profile',
         element:<DashboardProfile></DashboardProfile>
+      },
+      {
+        path:'myProfile',
+        element:<EmployerMyProfile></EmployerMyProfile>
       }
     ]
   }

@@ -1,9 +1,11 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
+  
+  const [dashboardModal,setDashboardModal]=useState(false)
     const AuthConfig ={
-        a:10
+       dashboardModal,setDashboardModal
     }
   return <AuthContext.Provider value={AuthConfig}>{children}</AuthContext.Provider>;
 };
