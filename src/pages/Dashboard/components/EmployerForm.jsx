@@ -8,12 +8,13 @@ const EmployerForm = () => {
   const [expectedSalary, setExpectedSalary] = useState();
   const [experience, setExperience] = useState();
   const [age, setAge] = useState();
-  const [country, setCountry] = useState('Bangladesh');
+  const [country, setCountry] = useState("Bangladesh");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [job, setJob] = useState("");
   const [number, setNumber] = useState("");
+  const [img, setImg] = useState();
   //! ------------------- All function and useEffect-----------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
@@ -45,7 +46,7 @@ const EmployerForm = () => {
       country,
       description,
     };
-    console.log(myProfileData);
+    
   };
   return (
     <div>
@@ -59,7 +60,13 @@ const EmployerForm = () => {
           <label className="cursor-pointer" htmlFor="Logo">
             Logo
           </label>
-          <input className="hidden" id="Logo" type="file" accept="image/*" />
+          <input
+            onChange={(e) => setImg(e.target.files[0])}
+            className="hidden"
+            id="Logo"
+            type="file"
+            accept="image/*"
+          />
         </div>
         <p className="w-full h-[1px] bg-slate-600 mt-7"></p>
         <div className="w-full">

@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { AuthContext } from "../../../Firebase/AuthProvider";
+import { useContext } from "react";
 import { CiMenuFries } from "react-icons/ci";
-import EmployerNav from "./components/EmployerNav";
-import { AuthContext } from "../../Firebase/AuthProvider";
 import { RxBackpack } from "react-icons/rx";
 import { FiBookmark } from "react-icons/fi";
+import EmployerNav from "../components/EmployerNav";
 
-const DashboardProfile = () => {
+const EmployerDashboardProfile = () => {
   const { dashboardModal, setDashboardModal } = useContext(AuthContext);
 
   return (
@@ -19,7 +19,7 @@ const DashboardProfile = () => {
         </button>
       </div>
 
-      {dashboardModal && <EmployerNav></EmployerNav>}
+      <div className="lg:hidden">{dashboardModal && <EmployerNav></EmployerNav>}</div>
       {/* -------------------------------------- */}
       <div className="px-3">
         <h1 className="text-2xl font-semibold">Dashboard Home!</h1>
@@ -39,7 +39,7 @@ const DashboardProfile = () => {
           {/* ---------------------- */}
           <div className="bg-white lg:w-fit p-4 rounded-md flex items-center justify-between gap-10 shadow-md shadow-blue-300">
             <span className="bg-slate-200 p-6 rounded-md">
-             <FiBookmark color="red"></FiBookmark>
+              <FiBookmark color="red"></FiBookmark>
             </span>
             <div className="text-right">
               <h1 className="text-red-600 lg:text-2xl font-semibold">44</h1>
@@ -48,9 +48,10 @@ const DashboardProfile = () => {
           </div>
         </div>
       </div>
-      <h1 className="text-center absolute bottom-0 px-11">© 2023 Indded by ib-themes. All Right Reserved.</h1>
+      <h1 className="text-center absolute bottom-0 px-11">
+        © 2023 Indded by ib-themes. All Right Reserved.
+      </h1>
     </div>
   );
 };
-
-export default DashboardProfile;
+export default EmployerDashboardProfile;

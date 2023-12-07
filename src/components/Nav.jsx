@@ -11,7 +11,7 @@ const Nav = () => {
 
   return (
     <nav className="relative">
-      {/* for desktop */}
+      {/* ----------------------for desktop----------------- */}
       <div
         className={`fixed w-full z-10 lg:flex justify-around items-center ${location.pathname==='/dashboard/profile'?'bg-gray-600':"bg-[#ebe4e4]"} hidden text-slate-800`}
       >
@@ -23,7 +23,7 @@ const Nav = () => {
           <NavLink>Blog</NavLink>
         </div>
         <div className="flex gap-5 items-center">
-          <NavLink>Upload your CV</NavLink>
+          <NavLink className={`text-violet-600`}>Upload your CV</NavLink>
           <Link
             to={"/login"}
             className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
@@ -34,7 +34,7 @@ const Nav = () => {
             Job Post
           </NavLink>
           <NavLink
-            to={"/dashboard/profile"}
+            to={"/dashboard/overview"}
             className="bg-blue-600 px-5 py-1 rounded-md text-white"
           >
             Dashboard
@@ -61,7 +61,7 @@ const Nav = () => {
         </div>
       </div>
 
-      {/* for mobile */}
+      {/* --------------------------for mobile------------------------- */}
       {open && (
         <div className="lg:hidden fixed top-0 gap-5 text-center bg-slate-900 z-20 h-full w-[50%]">
           <div className="flex gap-14 flex-col text-white justify-between h-full overflow-y-scroll">
@@ -80,7 +80,7 @@ const Nav = () => {
               Job Post
             </NavLink>
             <NavLink
-              to={"/dashboard/profile"}
+              to={"/dashboard/overview"}
               className="lg:bg-blue-600 px-5 py-1 rounded-md text-white"
             >
               Dashboard

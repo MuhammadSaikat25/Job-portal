@@ -14,7 +14,7 @@ const EmployerDashboard = () => {
           className={({ isActive }) =>
             isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
           }
-          to={"/dashboard/profile"}
+          to={"/dashboard/overview"}
         >
           <div className="flex items-center gap-2">
             <IoHome></IoHome>

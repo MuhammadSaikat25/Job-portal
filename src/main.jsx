@@ -9,8 +9,9 @@ import LogIn from "./components/LogIn.jsx";
 import Register from "./components/Register.jsx";
 import AuthProvider from "./Firebase/AuthProvider.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
-import DashboardProfile from "./pages/Dashboard/DashboardProfile.jsx";
+// import DashboardProfile from "./pages/Dashboard/DashboardProfile.jsx";
 import EmployerMyProfile from "./pages/Dashboard/Employer/EmployerMyProfile.jsx";
+import EmployerDashboardProfile from "./pages/Dashboard/Employer/EmployerDashboardProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,8 @@ const router = createBrowserRouter([
     element:<Dashboard></Dashboard>,
     children:[
       {
-        path:'profile',
-        element:<DashboardProfile></DashboardProfile>
+        path:'overview',
+        element:<EmployerDashboardProfile></EmployerDashboardProfile>
       },
       {
         path:'myProfile',
