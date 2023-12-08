@@ -14,6 +14,7 @@ import EmployerMyProfile from "./pages/Dashboard/Employer/EmployerMyProfile.jsx"
 import EmployerDashboardProfile from "./pages/Dashboard/Employer/EmployerDashboardProfile.jsx";
 import CandidateDashboardProfile from "./pages/Dashboard/Candidate/CandidateDashboardProfile.jsx";
 import CompanyProfile from "./pages/Dashboard/Candidate/CompanyProfile.jsx";
+import PostANewJob from "./pages/Dashboard/Candidate/PostANewJob.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path:'companyProfile',
         element:<CompanyProfile></CompanyProfile>
+      },
+      {
+        path:'postNewJob',
+        element:<PostANewJob></PostANewJob>
       }
     ]
   }

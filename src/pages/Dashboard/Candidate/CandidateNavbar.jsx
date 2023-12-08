@@ -45,7 +45,7 @@ const CandidateNavbar = () => {
           <h1>Manage Jobs</h1>
         </div>
       </NavLink>
-      <NavLink
+      <NavLink to={'/dashboard/postNewJob'}
         className={({ isActive }) =>
           isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
         }

@@ -4,7 +4,7 @@ import TagFormCandidate from "./TagFormCandidate";
 const CompanyForm = () => {
   const [work, setWork] = useState([]);
   const [cols, setCols] = useState(getInitialCols());
-  
+
   // ! ---------------------------------all function--------------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
@@ -22,7 +22,6 @@ const CompanyForm = () => {
   }, []);
   return (
     <div className="bg-white rounded-md p-4 lg:p-10 mt-6">
-     
       <form className="w-full">
         <div className="border border-dashed w-fit rounded-md p-7 border-stone-900">
           <label htmlFor="image">Profile</label>
@@ -119,7 +118,6 @@ const CompanyForm = () => {
             cols={cols}
             rows="7"
             placeholder="About Company"
-            onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
         {/* ------------------ Btn----------------- */}
