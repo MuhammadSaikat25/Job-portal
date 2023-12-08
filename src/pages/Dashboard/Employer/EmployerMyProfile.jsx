@@ -17,6 +17,7 @@ const EmployerMyProfile = () => {
         </button>
       </div>
       <div className="lg:hidden">{dashboardModal && <EmployerNav></EmployerNav>}</div>
+      {/* --------------------------------------- */}
       <div className=" lg:px-[250px] w-full">
         <div className="px-3">
           <h1>My Profile!</h1>

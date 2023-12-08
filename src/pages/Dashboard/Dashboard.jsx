@@ -19,7 +19,7 @@ const Dashboard = () => {
       {/*  ------------------------- Small Device---------------------- */}
       <div className="block lg:hidden">
         <Nav></Nav>
-        <div className="">
+        <div className="py-5">
           <Outlet></Outlet>
         </div>
       </div>
