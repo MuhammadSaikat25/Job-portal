@@ -25,6 +25,7 @@ const CandidateNavbar = () => {
       </NavLink>
 
       <NavLink
+      to={'/dashboard/companyProfile'}
         className={({ isActive }) =>
           isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
         }
