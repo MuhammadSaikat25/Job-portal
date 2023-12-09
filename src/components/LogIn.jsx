@@ -1,12 +1,35 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import logo from "../assets/Indeed-Logo-2004.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa6";
+import { AuthContext } from "../Firebase/AuthProvider";
 
 const LogIn = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const [userLoading, setUserLoading] = useState(false);
+  const [error, seTError] = useState("");
   const [hidden, setHidden] = useState(false);
+  // ! ------------------ Login function ------------------------
+  const handelSinging = async (e) => {
+    e.preventDefault();
+    setUserLoading(true);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    try {
+      const singing = await login(email, password);
+      seTError("");
+      setUserLoading(false);
+      navigate("/");
+    } catch (error) {
+      setUserLoading(false);
+      if (error.code === "auth/invalid-login-credentials") {
+        seTError("invalid-login-credentials");
+      }
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-screen w-full flex items-center justify-center">
       <div className="bg-white w-full lg:w-[40%] rounded-md p-10">
@@ -14,7 +37,9 @@ const LogIn = () => {
           <img className="w-[70px]" src={logo} alt="" />
           <div className="flex items-center gap-1">
             <h1 className="text-slate-500">Don't have an account?</h1>
-            <Link to={'/register'} className="text-blue-500">sing Up</Link>
+            <Link to={"/register"} className="text-blue-500">
+              sing Up
+            </Link>
           </div>
         </div>
         <div className="flex justify-center mt-5">
@@ -23,12 +48,15 @@ const LogIn = () => {
               Login to Indeed
             </h1>
             <h1 className="text-stone-500 mt-3">
-              Now you can apply for your deram job here i Indeed
+              Now you can apply for your dream job here i Indeed
             </h1>
           </div>
         </div>
         {/* --------------------------- */}
-        <form className=" flex flex-col relative justify-center mt-10">
+        <form
+          onSubmit={handelSinging}
+          className=" flex flex-col relative justify-center mt-10"
+        >
           {/* ----------------------------- */}
           <div className="w-[70%] flex flex-col gap-3 mx-auto">
             <input
@@ -51,12 +79,17 @@ const LogIn = () => {
             >
               {hidden ? <FaRegEye></FaRegEye> : <FaRegEyeSlash></FaRegEyeSlash>}
             </div>
-            <button
-              type="submit"
-              className="bg-blue-600 p-2 rounded text-white"
-            >
-              Login
-            </button>
+            {userLoading ? (
+              <h1 className="text-center text-orange-500">Loading...</h1>
+            ) : (
+              <button
+                type="submit"
+                className="bg-blue-600 p-2 rounded text-white"
+              >
+                Login
+              </button>
+            )}
+            <h1 className="text-red-500 text-center">{error}</h1>
           </div>
         </form>
         {/* --------------------------- */}
