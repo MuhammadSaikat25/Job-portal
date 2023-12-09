@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/Indeed-Logo-2004.png";
 import { CiMenuFries } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
@@ -7,13 +7,17 @@ import { useState } from "react";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
-  const location=useLocation()
-
+  const user = localStorage.getItem("user");
+ 
   return (
     <nav className="relative">
       {/* ----------------------for desktop----------------- */}
       <div
-        className={`fixed w-full z-10 lg:flex justify-around items-center ${location.pathname==='/dashboard/profile'?'bg-gray-600':"bg-[#ebe4e4]"} hidden text-slate-800`}
+        className={`fixed w-full z-10 lg:flex justify-around items-center ${
+          location.pathname === "/dashboard/profile"
+            ? "bg-gray-600"
+            : "bg-[#ebe4e4]"
+        } hidden text-slate-800`}
       >
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-5 items-center">
@@ -23,7 +27,9 @@ const Nav = () => {
           <NavLink>Blog</NavLink>
         </div>
         <div className="flex gap-5 items-center">
-          <NavLink to={'/dashboard/myProfile'} className={`text-violet-600`}>Upload your CV</NavLink>
+          <NavLink to={"/dashboard/myProfile"} className={`text-violet-600`}>
+            Upload your CV
+          </NavLink>
           <Link
             to={"/login"}
             className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
@@ -33,12 +39,14 @@ const Nav = () => {
           <NavLink className="bg-blue-600 px-5 py-1 rounded-md text-white">
             Job Post
           </NavLink>
-          <NavLink
-            to={"/dashboard/candidateOverview"}
-            className="bg-blue-600 px-5 py-1 rounded-md text-white"
-          >
-            Dashboard
-          </NavLink>
+          {user === "true" && (
+            <NavLink
+              to={"/dashboard/candidateOverview"}
+              className="bg-blue-600 px-5 py-1 rounded-md text-white"
+            >
+              Dashboard
+            </NavLink>
+          )}
         </div>
       </div>
 
@@ -69,7 +77,7 @@ const Nav = () => {
             <NavLink>Find Job</NavLink>
             <NavLink>Employers</NavLink>
             <NavLink>Blog</NavLink>
-            <NavLink to={'/dashboard/myProfile'}>Upload your CV</NavLink>
+            <NavLink to={"/dashboard/myProfile"}>Upload your CV</NavLink>
             <Link
               to={"/login"}
               className="lg:bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
@@ -79,7 +87,8 @@ const Nav = () => {
             <NavLink className="lg:bg-blue-600 px-5 py-1 rounded-md text-white">
               Job Post
             </NavLink>
-            <NavLink onClick={() => setOpen(!open)}
+            <NavLink
+              onClick={() => setOpen(!open)}
               to={"/dashboard/overview"}
               className="lg:bg-blue-600 px-5 py-1 rounded-md text-white"
             >

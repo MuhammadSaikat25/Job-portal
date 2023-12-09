@@ -1,15 +1,23 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaUserTie } from "react-icons/fa6";
 import { MdOutlineAddLink } from "react-icons/md";
-
 import { IoIosPaper } from "react-icons/io";
 import { BsBackpack4 } from "react-icons/bs";
 import { FiBookmark } from "react-icons/fi";
 import { CiLogin } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
+import { useContext } from "react";
+import { AuthContext } from "../../../Firebase/AuthProvider";
+
 const CandidateNavbar = () => {
+  const {userOut}=useContext(AuthContext)
+  const navigate=useNavigate()
+  const singOut=async()=>{
+    const res=await userOut()
+    navigate('/')
+  }
   return (
     <div className="flex flex-col justify-between h-full p-2">
       <NavLink
@@ -75,7 +83,7 @@ const CandidateNavbar = () => {
           <h1>Shortlisted Resumes</h1>
         </div>
       </NavLink>
-      <NavLink
+      <NavLink onClick={singOut}
         className={({ isActive }) =>
           isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
         }

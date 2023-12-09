@@ -6,17 +6,20 @@ import { FaRegEye } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../Firebase/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import axios from 'axios'
 const Register = () => {
   const navigate = useNavigate();
   const { createUser, auth } = useContext(AuthContext);
   const [userLoading, setUserLoading] = useState(false);
   const [userType, setUserType] = useState("");
   const [error, seTError] = useState("");
+  const [hidden, setHidden] = useState(false);
+  const role =userType || 'Candidate'
+  
   const toggle = (type) => {
     setUserType(type);
   };
   //! ----------------- SingUp function ---------------
-  const [hidden, setHidden] = useState(false);
   const handelLogin = async (e) => {
     setUserLoading(true);
     e.preventDefault();
@@ -24,10 +27,16 @@ const Register = () => {
     const name = e.target.name.value;
     const password = e.target.password.value;
     try {
+      const userData={
+        email,name,role
+      }
       const singing = await createUser(email, password);
       const updateUser = await updateProfile(auth.currentUser, {
         displayName: name,
       });
+    // !------------------- post user into Db --------------
+    const {data}=await axios.post(`${import.meta.env.VITE_SERVER}/postUser`,userData)
+
       seTError("");
       setUserLoading(false);
       navigate("/");
@@ -38,6 +47,7 @@ const Register = () => {
       }
     }
   };
+
   return (
     <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-screen w-full flex items-center justify-center">
       <div className="bg-white w-full lg:w-[40%] rounded-md p-10">
