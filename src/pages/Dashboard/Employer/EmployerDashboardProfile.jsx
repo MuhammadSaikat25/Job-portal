@@ -6,7 +6,7 @@ import { FiBookmark } from "react-icons/fi";
 import EmployerNav from "../components/EmployerNav";
 
 const EmployerDashboardProfile = () => {
-  const { dashboardModal, setDashboardModal } = useContext(AuthContext);
+  const { dashboardModal, setDashboardModal,user } = useContext(AuthContext);
 
   return (
     <div className=" lg:px-[250px] bg-[#ececec] h-screen">

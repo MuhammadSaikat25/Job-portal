@@ -6,9 +6,10 @@ import CandidateNavbar from "./CandidateNavbar";
 import CandidateNabSM from "../components/Candidate/CandidateNabSM";
 
 const CompanyProfile = () => {
-  const { dashboardModal, setDashboardModal } = useContext(AuthContext);
+  const { dashboardModal, setDashboardModal,user } = useContext(AuthContext);
   return (
     <div className="lg:px-[250px]  mt-20 lg:mt-0">
+      
       <div className="px-5 lg:px-5">
         <h1 className="text-2xl font-semibold mb-3">Company Profile!</h1>
         <h1>Ready to jump back in?</h1>

@@ -44,6 +44,7 @@ const AuthProvider = ({ children }) => {
     login,
     auth,
     userOut,
+    user
   };
 
   return (
