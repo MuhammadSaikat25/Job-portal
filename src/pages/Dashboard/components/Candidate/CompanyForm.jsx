@@ -1,18 +1,25 @@
 import { useContext, useEffect, useState } from "react";
-import TagFormCandidate from "./TagFormCandidate";
 import { AuthContext } from "../../../../Firebase/AuthProvider";
 import axios from "axios";
+import useAxiosInterceptor from "../../../../hooks/useAxiosInterceptor";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const CompanyForm = () => {
+  const axiosInterceptor = useAxiosInterceptor();
   const { user } = useContext(AuthContext);
-  const [work, setWork] = useState([]);
+  const userEmail = user?.email;
+  const [companyCreated, setCompanyCreated] = useState({});
   const [cols, setCols] = useState(getInitialCols());
-  const a = 10;
   // ! ---------------------------------all function--------------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
   }
-
+  
   useEffect(() => {
+    axiosInterceptor
+      .get(`/getCompany/${user?.email}`)
+      .then((res) => setCompanyCreated(res.data));
     function handleResize() {
       setCols(getInitialCols());
     }
@@ -21,10 +28,16 @@ const CompanyForm = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [user?.email]);
+
   const crateProfile = async (e) => {
     e.preventDefault();
+    const companyRes = await axiosInterceptor.get(`/getCompany/${user?.email}`);
+    setCompanyCreated(companyRes.data);
 
+    if (companyCreated?._id) {
+      return toast("Already Company Created");
+    }
     const img = e.target.img.files[0];
     let body = new FormData();
     body.set("key", `${import.meta.env.VITE_IMGBB}`);
@@ -53,15 +66,18 @@ const CompanyForm = () => {
       team,
       about,
     };
-    // console.log(data)
+  
     const postCompany = await axios.post(
       `${import.meta.env.VITE_SERVER}/postCompanyData`,
       data
     );
-    console.log(postCompany);
+    if(postCompany.status===200){
+      toast('Company Created Successful')
+    }
   };
   return (
     <div className="bg-white rounded-md p-4 lg:p-10 mt-6">
+      <ToastContainer></ToastContainer>
       <form onSubmit={crateProfile} className="w-full">
         {/* ------------------- Logo --------------------------- */}
         <div className="border border-dashed w-fit rounded-md p-7 border-stone-900">
@@ -97,7 +113,8 @@ const CompanyForm = () => {
               name="email"
               id="Email"
               placeholder="microsoft@gmail.com"
-              value={user?.email}
+              value={userEmail || ""}
+              readOnly
             />
           </section>
         </div>

@@ -1,17 +1,28 @@
 import { FaBriefcase } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
 import { FaCheckDouble } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import useAxiosInterceptor from "../../../../hooks/useAxiosInterceptor";
+import { AuthContext } from "../../../../Firebase/AuthProvider";
 
 const JobPostForm = () => {
+  const { user } = useContext(AuthContext);
   const [cols, setCols] = useState(getInitialCols());
-    // const [specialisms,setSpecialisms]=useState([])
+  const [company, setCompany] = useState({});
+  const axiosInterceptor = useAxiosInterceptor();
+  // console.log(company)
   // ! ---------------------------------all function--------------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
   }
 
   useEffect(() => {
+    axiosInterceptor
+      .get(`/getCompany/${user?.email}`)
+      .then((res) => setCompany(res.data));
+    function handleResize() {
+      setCols(getInitialCols());
+    }
     function handleResize() {
       setCols(getInitialCols());
     }
@@ -20,7 +31,7 @@ const JobPostForm = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [user?.email]);
   return (
     <div className="bg-white p-10 lg:mt-10 rounded-md ">
       <div className="">
