@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import TagsFormEmployer from "./TagsFormEmployer";
-
+import useAxiosInterceptor from "../../../hooks/useAxiosInterceptor";
+import { AuthContext } from "../../../Firebase/AuthProvider";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const EmployerForm = () => {
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [skill, setSkills] = useState([]);
   const [cols, setCols] = useState(getInitialCols());
   const [currentSalary, setCurrentSalary] = useState();
@@ -11,15 +17,14 @@ const EmployerForm = () => {
   const [country, setCountry] = useState("Bangladesh");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [job, setJob] = useState("");
   const [number, setNumber] = useState("");
-  const [img, setImg] = useState();
+
   //! ------------------- All function and useEffect-----------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
   }
-
+  const axiosInterceptor = useAxiosInterceptor();
   useEffect(() => {
     function handleResize() {
       setCols(getInitialCols());
@@ -31,26 +36,50 @@ const EmployerForm = () => {
     };
   }, []);
 
-  const handelForm = (e) => {
+  const handelForm = async (e) => {
+    setLoading(Fragment);
     e.preventDefault();
-    const myProfileData = {
-      name,
-      email,
-      job,
-      number,
-      skill,
-      currentSalary,
-      expectedSalary,
-      experience,
-      age,
-      country,
-      description,
-    };
-    
+    console.log(10);
+    const img = e.target.img.files[0];
+    let body = new FormData();
+    body.set("key", `${import.meta.env.VITE_IMGBB}`);
+    body.append("image", img);
+
+    try {
+      const res = await axios({
+        method: "post",
+        url: "https://api.imgbb.com/1/upload",
+        data: body,
+      });
+      const myProfileData = {
+        img: res.data.data.url,
+        name,
+        email: user?.email,
+        job,
+        number,
+        skill,
+        currentSalary,
+        expectedSalary,
+        experience,
+        age,
+        country,
+        description,
+      };
+
+      const ProfileRes = await axiosInterceptor.post(
+        `/PostEmployerProfile`,
+        myProfileData
+      );
+        toast('Profile Created Successful')
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
   return (
     <div>
-      
+      <ToastContainer></ToastContainer>
       <form
         onSubmit={handelForm}
         className="bg-white p-4 rounded-md"
@@ -62,14 +91,15 @@ const EmployerForm = () => {
             Logo
           </label>
           <input
-            onChange={(e) => setImg(e.target.files[0])}
             className="hidden"
             id="Logo"
             type="file"
+            name="img"
             accept="image/*"
           />
         </div>
         <p className="w-full h-[1px] bg-slate-600 mt-7"></p>
+        {/* ----------------- Name -------------- */}
         <div className="w-full">
           <div className=" w-full flex-col lg:flex-row lg:flex justify-evenly p-3 gap-4">
             <section className="lg:w-[50%]">
@@ -122,10 +152,11 @@ const EmployerForm = () => {
                 className="p-2 rounded w-full bg-stone-100"
                 type="email"
                 name=""
+                value={user?.email || ""}
                 id="Email"
                 placeholder="example@gmail.com"
                 required
-                onChange={(e) => setEmail(e.target.value)}
+                readOnly
               />
             </section>
           </div>
@@ -203,19 +234,6 @@ const EmployerForm = () => {
             </section>
           </div>
         </div>
-        {/* --------------------------- Get Resume(PDF)--------------------- */}
-        <div className="border-dashed border-gray-600 border-2 w-full p-3 cursor-pointer rounded mt-4 flex justify-center">
-          <label className="text-gray-800 font-semibold" htmlFor="Resume">
-            Select Resume
-          </label>
-          <input
-            className="hidden"
-            type="file"
-            name=""
-            id="Resume"
-            accept=".pdf"
-          />
-        </div>
         {/* --------------------------- Skills and Country */}
         <div className="flex flex-col lg:justify-between lg:items-center gap-4 lg:flex-row  w-full ">
           <div className=" lg:w-[50%]">
@@ -254,7 +272,15 @@ const EmployerForm = () => {
           ></textarea>
         </div>
 
-        <button>Save</button>
+        {loading ? (
+          <h1 className="text-center text-orange-300 font-semibold">
+            loading..
+          </h1>
+        ) : (
+          <div className="w-full flex justify-center bg-blue-950 p-1 rounded-md">
+            <button className="text-white">Crate Profile</button>
+          </div>
+        )}
       </form>
     </div>
   );
