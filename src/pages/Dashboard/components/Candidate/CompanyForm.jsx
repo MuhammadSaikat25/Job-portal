@@ -9,13 +9,13 @@ const CompanyForm = () => {
   const axiosInterceptor = useAxiosInterceptor();
   const { user } = useContext(AuthContext);
   const userEmail = user?.email;
+  const [loading, setLoading] = useState(false);
   const [companyCreated, setCompanyCreated] = useState({});
   const [cols, setCols] = useState(getInitialCols());
   // ! ---------------------------------all function--------------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
   }
-  
   useEffect(() => {
     axiosInterceptor
       .get(`/getCompany/${user?.email}`)
@@ -31,6 +31,7 @@ const CompanyForm = () => {
   }, [user?.email]);
 
   const crateProfile = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const companyRes = await axiosInterceptor.get(`/getCompany/${user?.email}`);
     setCompanyCreated(companyRes.data);
@@ -42,13 +43,6 @@ const CompanyForm = () => {
     let body = new FormData();
     body.set("key", `${import.meta.env.VITE_IMGBB}`);
     body.append("image", img);
-
-    const res = await axios({
-      method: "post",
-      url: "https://api.imgbb.com/1/upload",
-      data: body,
-    });
-
     const name = e.target.company.value;
     const email = e.target.email.value;
     const phone = e.target.phone.value;
@@ -56,23 +50,33 @@ const CompanyForm = () => {
     const companyCreate = e.target.companyCreate.value;
     const team = e.target.team.value;
     const about = e.target.about.value;
-    const data = {
-      img: res.data.data.url,
-      name,
-      email,
-      phone,
-      website,
-      companyCreate,
-      team,
-      about,
-    };
-  
-    const postCompany = await axios.post(
-      `${import.meta.env.VITE_SERVER}/postCompanyData`,
-      data
-    );
-    if(postCompany.status===200){
-      toast('Company Created Successful')
+
+    try {
+      const res = await axios({
+        method: "post",
+        url: "https://api.imgbb.com/1/upload",
+        data: body,
+      });
+      const data = {
+        img: res.data.data.url,
+        name,
+        email,
+        phone,
+        website,
+        companyCreate,
+        team,
+        about,
+      };
+      const postCompany = await axiosInterceptor.post(
+        `${import.meta.env.VITE_SERVER}/postCompanyData`,
+        data
+      );
+      setLoading(false);
+      if (postCompany.status === 200) {
+        toast("Company Created Successful");
+      }
+    } catch (error) {
+      setLoading(false);
     }
   };
   return (
@@ -185,9 +189,15 @@ const CompanyForm = () => {
           ></textarea>
         </div>
         {/* ------------------ Btn----------------- */}
-        <button className="text-white bg-blue-700 p-1 rounded-md w-full mt-3.">
-          Create Company
-        </button>
+        {loading ? (
+          <h1 className="text-center font-semibold text-orange-300">
+            loading..
+          </h1>
+        ) : (
+          <button className="text-white bg-blue-700 p-1 rounded-md w-full mt-3.">
+            Create Company
+          </button>
+        )}
       </form>
     </div>
   );

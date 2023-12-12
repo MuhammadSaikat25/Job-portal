@@ -9,9 +9,7 @@ const axiosInterceptor = axios.create({
 const useAxiosInterceptor = () => {
   const { userOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  // const axiosInterceptor = axios.create({
-  //   baseURL: `http://localhost:5000`,
-  // });
+ 
   axiosInterceptor.interceptors.request.use(
     (config) => {
       const token = localStorage.getItem("token");

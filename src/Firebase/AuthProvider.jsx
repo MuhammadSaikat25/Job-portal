@@ -11,14 +11,17 @@ import axios from "axios";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+  const [loading,setLoading]=useState(true)
   const [user, setUser] = useState(null);
   const auth = getAuth(app);
   const [dashboardModal, setDashboardModal] = useState(false);
   // !  ------------------- cerate function for login,sing up and logout ----------------------
   const createUser = (email, password) => {
+    setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const login = (email, password) => {
+    setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
   const userOut = () => {
@@ -28,15 +31,18 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        axios.post(`${import.meta.env.VITE_SERVER}/jwt`,{user:user?.email})
+        const email={email:currentUser?.email}
+        axios.post(`${import.meta.env.VITE_SERVER}/jwt`,email)
           .then(res=>{
             localStorage.setItem('token',res.data.token)
           })
         setUser(currentUser);
+        setLoading(false)
         localStorage.setItem('user',true)
       }else{
         localStorage.removeItem('token')
         localStorage.setItem('user',false)
+        localStorage.removeItem('role')
       }
     });
     return () => {
@@ -50,7 +56,8 @@ const AuthProvider = ({ children }) => {
     login,
     auth,
     userOut,
-    user
+    user,
+    loading
   };
 
   return (

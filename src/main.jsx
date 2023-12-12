@@ -15,6 +15,7 @@ import EmployerDashboardProfile from "./pages/Dashboard/Employer/EmployerDashboa
 import CandidateDashboardProfile from "./pages/Dashboard/Candidate/CandidateDashboardProfile.jsx";
 import CompanyProfile from "./pages/Dashboard/Candidate/CompanyProfile.jsx";
 import PostANewJob from "./pages/Dashboard/Candidate/PostANewJob.jsx";
+import CandidatePrivateRoute from "./Firebase/Private/CandidatePrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,15 +50,15 @@ const router = createBrowserRouter([
       },
       {
         path:"candidateOverview",
-        element:<CandidateDashboardProfile></CandidateDashboardProfile>
+        element:<CandidatePrivateRoute><CandidateDashboardProfile></CandidateDashboardProfile></CandidatePrivateRoute>
       },
       {
         path:'companyProfile',
-        element:<CompanyProfile></CompanyProfile>
+        element:<CandidatePrivateRoute><CompanyProfile></CompanyProfile></CandidatePrivateRoute>
       },
       {
         path:'postNewJob',
-        element:<PostANewJob></PostANewJob>
+        element:<CandidatePrivateRoute><PostANewJob></PostANewJob></CandidatePrivateRoute>
       }
     ]
   }

@@ -14,7 +14,7 @@ const Register = () => {
   const [userType, setUserType] = useState("");
   const [error, seTError] = useState("");
   const [hidden, setHidden] = useState(false);
-  const role =userType || 'Candidate'
+  const role =userType || 'Employer'
   
   const toggle = (type) => {
     setUserType(type);
@@ -23,7 +23,8 @@ const Register = () => {
   const handelLogin = async (e) => {
     setUserLoading(true);
     e.preventDefault();
-    const email = e.target.email.value;
+    const enteredEmail  = e.target.email.value;
+    const email=enteredEmail.toLowerCase()
     const name = e.target.name.value;
     const password = e.target.password.value;
     try {

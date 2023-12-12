@@ -4,13 +4,25 @@ import { FaCheckDouble } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import useAxiosInterceptor from "../../../../hooks/useAxiosInterceptor";
 import { AuthContext } from "../../../../Firebase/AuthProvider";
+import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const JobPostForm = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [cols, setCols] = useState(getInitialCols());
   const [company, setCompany] = useState({});
+  const [position, setPosition] = useState("remote");
+  const [jobType, setJobType] = useState("part time");
+  const [offeredSalary, setOfferedSalary] = useState("30-50");
+  const [careerLevel, setCareerLevel] = useState("Bigener");
   const axiosInterceptor = useAxiosInterceptor();
-  // console.log(company)
+  const currentDate = moment();
+  const postDate = currentDate.format("MM/DD/YYYY");
+
   // ! ---------------------------------all function--------------------------
   function getInitialCols() {
     return window.innerWidth >= 1024 ? 150 : 50;
@@ -32,8 +44,43 @@ const JobPostForm = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [user?.email]);
+
+  const handelPostJob = async (e) => {
+    e.preventDefault();
+    if (!company?._id) {
+      toast("At First Create Company");
+      setTimeout(() => {
+        navigate("/dashboard/companyProfile");
+      }, 1000);
+
+      return;
+    }
+    setLoading(true);
+
+    const jobsTitle = e.target.jobsTitle.value;
+    const jobDescription = e.target.JobDescription.value;
+    const deadline = e.target.Deadline.value;
+    const country = e.target.Country.value;
+    const jobData = {
+      companyImg: company.img,
+      jobDescription,
+      jobsTitle,
+      deadline,
+      country,
+      offeredSalary,
+      careerLevel,
+      company: company?.email,
+      position,
+      jobType,
+      postDate,
+    };
+    const postJob = await axiosInterceptor.post(`/postJob`, jobData);
+    toast("Job Post Successful");
+    setLoading(false);
+  };
   return (
     <div className="bg-white p-10 lg:mt-10 rounded-md ">
+      <ToastContainer></ToastContainer>
       <div className="">
         <h1 className="text-gray-600 mb-10 font-semibold">Job Post</h1>
         <div className="flex flex-col lg:flex-row gap-10">
@@ -60,7 +107,7 @@ const JobPostForm = () => {
         </div>
       </div>
       <div className="">
-        <form className="mt-10">
+        <form onSubmit={handelPostJob} className="mt-10">
           {/* --------------------- Job Title------------------- */}
           <div className="">
             <label className="text-gray-600" htmlFor="JobTitle">
@@ -71,6 +118,7 @@ const JobPostForm = () => {
               className="bg-slate-300 p-2 rounded-md w-full mt-3"
               type="text"
               id="JobTitle"
+              name="jobsTitle"
               placeholder="Web developer"
               required
             />
@@ -79,14 +127,13 @@ const JobPostForm = () => {
           <div className="">
             <textarea
               className="border-none rounded-md bg-slate-300 mt-6 p-2 resize-none w-full text-black"
-              name=""
-              id=""
+              name="JobDescription"
               cols={cols}
               rows="7"
               placeholder="Job Description"
             ></textarea>
           </div>
-          {/* -----------------------------Email and Job type-------------- */}
+          {/* -----------------------------Email and Job position-------------- */}
           <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
             <section className="w-full lg:w-[50%]">
               <label htmlFor="email">Email</label>
@@ -96,6 +143,8 @@ const JobPostForm = () => {
                 type="email"
                 id="email"
                 placeholder="example@gmail.com"
+                value={company.email || ""}
+                readOnly
               />
             </section>
             <section className="w-full lg:w-[50%]">
@@ -105,6 +154,8 @@ const JobPostForm = () => {
                 className="bg-slate-300 p-2 rounded-md w-full"
                 name=""
                 id=""
+                value={position}
+                onChange={(e) => setPosition(e.target.value)}
               >
                 <option value="Remote">Remote</option>
                 <option value="On side">On Side</option>
@@ -120,6 +171,7 @@ const JobPostForm = () => {
                 className="w-full mt-2 bg-slate-300 p-2 rounded-md"
                 name=""
                 id="offeredSalary"
+                onChange={(e) => setOfferedSalary(e.target.value)}
               >
                 <option value="30-50">30-50K years</option>
                 <option value="60-80">60-80K years</option>
@@ -133,6 +185,8 @@ const JobPostForm = () => {
               <select
                 className="w-full mt-2 bg-slate-300 p-2 rounded-md"
                 name=""
+                value={careerLevel}
+                onCanPlay={(e) => setCareerLevel(e.target.value)}
                 id="Career Level"
               >
                 <option value="Bigener">Bigener</option>
@@ -149,7 +203,7 @@ const JobPostForm = () => {
               <input
                 className="w-full mt-2 bg-slate-300 p-2 rounded-md"
                 type="date"
-                name=""
+                name="Deadline"
                 id="Deadline"
               />
             </section>
@@ -159,7 +213,7 @@ const JobPostForm = () => {
               <input
                 className="w-full mt-2 bg-slate-300 p-2 rounded-md"
                 type="text"
-                name=""
+                name="Country"
                 id="Country"
                 placeholder="Bangladesh"
               />
@@ -173,6 +227,8 @@ const JobPostForm = () => {
               <select
                 className="w-full mt-2 bg-slate-300 p-2 rounded-md"
                 name=""
+                value={jobType}
+                onChange={(e) => setJobType(e.target.value)}
                 id="Job category"
               >
                 <option value="part-time">Part Time</option>
@@ -182,9 +238,15 @@ const JobPostForm = () => {
             </section>
           </div>
           {/* <JobPostForm setSpecialisms={setSpecialisms}></JobPostForm> */}
-          <button className="w-full bg-blue-600 p-1 text-white rounded-md mt-5">
-            Post Job
-          </button>
+          {loading ? (
+            <h1 className="text-center font-semibold text-orange-400">
+              Loading...
+            </h1>
+          ) : (
+            <button className="w-full bg-blue-600 p-1 text-white rounded-md mt-5">
+              Post Job
+            </button>
+          )}
         </form>
       </div>
     </div>
