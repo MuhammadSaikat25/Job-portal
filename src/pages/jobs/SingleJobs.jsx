@@ -2,10 +2,18 @@ import bag from "../../assets/bag.png";
 import { CiLocationOn } from "react-icons/ci";
 import { IoMdTime } from "react-icons/io";
 import salary from "../../assets/salary.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CiBookmark } from "react-icons/ci";
+import { useContext } from "react";
+import { AuthContext } from "../../Firebase/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useAxiosInterceptor from "../../hooks/useAxiosInterceptor";
 
 const SingleJobs = ({ jobs }) => {
+  const axiosInterceptor=useAxiosInterceptor()
+  const { user } = useContext(AuthContext);
+  const navigate=useNavigate()
   const {
     _id,
     careerLevel,
@@ -21,9 +29,24 @@ const SingleJobs = ({ jobs }) => {
     position,
     postDate,
   } = jobs;
-
+  const markJob = async(id, companyEmail) => {
+    if(!user){
+       toast('Login')
+      setTimeout(()=>{
+        navigate('/login')
+      },1000)
+      return
+    }
+    const data={
+      jobId:id,
+      companyEmail
+    }
+   const res=await axiosInterceptor.post(`/markJob`,data)
+   console.log(res.data)
+  };
   return (
     <div className="border items-center border-black flex gap-2 justify-between  w-full lg:w-[70%] p-2  rounded-md mx-auto cursor-pointer">
+      <ToastContainer></ToastContainer>
       <img className="w-[30px] " src={companyImg} alt="" />
       {/* ---------------------- */}
       <div className="w-full py-6">
@@ -53,7 +76,7 @@ const SingleJobs = ({ jobs }) => {
         </div>
       </div>
       {/* ------------------------ */}
-      <div className="">
+      <div onClick={() => markJob(_id, companyEmail)} className="">
         <CiBookmark></CiBookmark>
       </div>
     </div>
