@@ -1,11 +1,12 @@
 import { Fragment, useContext, useEffect, useState } from "react";
-import TagsFormEmployer from "./TagsFormEmployer";
-import useAxiosInterceptor from "../../../hooks/useAxiosInterceptor";
-import { AuthContext } from "../../../Firebase/AuthProvider";
+import useAxiosInterceptor from "../../../../hooks/useAxiosInterceptor";
+import { AuthContext } from "../../../../Firebase/AuthProvider";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const EmployerForm = () => {
+
+
+const CandidateProfileForm = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [skill, setSkills] = useState([]);
@@ -39,7 +40,7 @@ const EmployerForm = () => {
   const handelForm = async (e) => {
     setLoading(Fragment);
     e.preventDefault();
-    console.log(10);
+
     const img = e.target.img.files[0];
     let body = new FormData();
     body.set("key", `${import.meta.env.VITE_IMGBB}`);
@@ -57,7 +58,6 @@ const EmployerForm = () => {
         email: user?.email,
         job,
         number,
-        skill,
         currentSalary,
         expectedSalary,
         experience,
@@ -67,10 +67,10 @@ const EmployerForm = () => {
       };
 
       const ProfileRes = await axiosInterceptor.post(
-        `/PostEmployerProfile`,
+        `/PostCandidateProfile`,
         myProfileData
       );
-        toast('Profile Created Successful')
+      toast("Profile Created Successful");
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -236,10 +236,10 @@ const EmployerForm = () => {
         </div>
         {/* --------------------------- Skills and Country */}
         <div className="flex flex-col lg:justify-between lg:items-center gap-4 lg:flex-row  w-full ">
-          <div className=" lg:w-[50%]">
-            <TagsFormEmployer setSkills={setSkills}></TagsFormEmployer>
-          </div>
-          <div className="lg:w-[50%] lg:mt-5">
+          {/* <div className=" lg:w-[50%]">
+           
+          </div> */}
+          <div className="lg:w-[100%] lg:mt-5">
             <section className=" mb-6 lg:mb-0">
               <label htmlFor="Country">Country</label>
               <select
@@ -286,4 +286,4 @@ const EmployerForm = () => {
   );
 };
 
-export default EmployerForm;
+export default CandidateProfileForm;

@@ -4,13 +4,12 @@ import { IoHome } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaUserTie } from "react-icons/fa6";
 import { MdOutlineAddLink } from "react-icons/md";
-
 import { IoIosPaper } from "react-icons/io";
 import { BsBackpack4 } from "react-icons/bs";
 import { FiBookmark } from "react-icons/fi";
 import { CiLogin } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
-import { AuthContext } from "../../../Firebase/AuthProvider";
+import { AuthContext } from "../../../../Firebase/AuthProvider";
 
 
 const EmployerNavSm = () => {

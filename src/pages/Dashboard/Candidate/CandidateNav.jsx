@@ -10,30 +10,25 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Firebase/AuthProvider";
 import EmployerNavSm from "../components/Employer/EmployerNavSm";
 
-const EmployerNav = () => {
+const CandidateNav = () => {
   return (
     <div className="">
       <div className="hidden lg:flex flex-col h-screen justify-around">
         <NavLink to={"/dashboard/overview"}>OverView</NavLink>
-        <NavLink to={"/dashboard/companyProfile"}>
+        <NavLink to={`/dashboard/myProfile`}>
           <span className="flex items-center gap-1">
             <AiOutlineUser></AiOutlineUser>
-            <h1>Company Profile</h1>
+            <h1>My Profile</h1>
           </span>
         </NavLink>
-        <NavLink to={`/dashboard/postJob`}>
+        <NavLink>
           <span>
-            <h1>Post A JOb</h1>
+            <h1>Applied Jobs</h1>
           </span>
         </NavLink>
-        <NavLink to={`/dashboard/manageJob`}>
+        <NavLink>
           <span>
-            <h1>Manage Job</h1>
-          </span>
-        </NavLink>
-        <NavLink to={`/dashboard/allApplicants`}>
-          <span>
-            <h1>All Applicants</h1>
+            <h1>Shortlisted Jobs</h1>
           </span>
         </NavLink>
         <Link>Logout</Link>
@@ -43,4 +38,4 @@ const EmployerNav = () => {
   );
 };
 
-export default EmployerNav;
+export default CandidateNav;

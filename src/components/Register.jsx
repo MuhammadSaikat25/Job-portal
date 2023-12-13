@@ -14,7 +14,7 @@ const Register = () => {
   const [userType, setUserType] = useState("");
   const [error, seTError] = useState("");
   const [hidden, setHidden] = useState(false);
-  const role =userType || 'Employer'
+  const role =userType || 'Candidate'
   
   const toggle = (type) => {
     setUserType(type);

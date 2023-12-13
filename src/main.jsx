@@ -19,6 +19,7 @@ import CompanyProfile from "./pages/Dashboard/Employer/CompanyProfile.jsx";
 import PostJob from "./pages/Dashboard/Employer/PostJob.jsx";
 import ManageJob from "./pages/Dashboard/Employer/ManageJob.jsx";
 import AllApplicants from "./pages/Dashboard/Employer/AllApplicants.jsx";
+import MyProfile from "./pages/Dashboard/Candidate/MyProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path:'allApplicants',
         element:<AllApplicants></AllApplicants>
+      },
+      {
+        path:'myProfile',
+        element:<MyProfile></MyProfile>
       }
     ],
   },

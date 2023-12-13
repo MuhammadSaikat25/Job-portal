@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Firebase/AuthProvider";
-import EmployerNavSm from "./components/EmployerNavSm";
 import { CiMenuBurger } from "react-icons/ci";
+import EmployerNavSm from "./components/Employer/EmployerNavSm";
 const DashboardOverview = () => {
   const { setDashboardModal, dashboardModal } = useContext(AuthContext);
   return (
