@@ -21,6 +21,7 @@ const JobPostForm = () => {
   const [careerLevel, setCareerLevel] = useState("Bigener");
   const axiosInterceptor = useAxiosInterceptor();
   const currentDate = moment();
+  const [expareanice,setExpareanice]=useState('1-3')
   const postDate = currentDate.format("MM/DD/YYYY");
 
   // ! ---------------------------------all function--------------------------
@@ -73,9 +74,10 @@ const JobPostForm = () => {
       position,
       jobType,
       postDate,
-      companyEmail:company?.email
+      companyEmail: company?.email,
+      expareanice
     };
-   
+
     const postJob = await axiosInterceptor.post(`/postJob`, jobData);
     toast("Job Post Successful");
     setLoading(false);
@@ -222,8 +224,24 @@ const JobPostForm = () => {
               />
             </section>
           </div>
-          {/* ---------------------- Job category-------------------- */}
-          <div className="w-full mt-3">
+          {/* ---------------------- Job category and Expareanice-------------------- */}
+          <div className="mt-4 flex flex-col lg:flex-row gap-3">
+            <section className="w-full">
+              <label htmlFor="Job category">Expareanice</label>
+              <br />
+              <select
+                className="w-full mt-2 bg-slate-300 p-2 rounded-md"
+                name=""
+                value={expareanice}
+                onChange={(e) => setExpareanice(e.target.value)}
+                id="Job category"
+              >
+                <option value="1-3">1-3 Years</option>
+                <option value="4-7">4-7 Years</option>
+                <option value="8-10">8-10 Years</option>
+                <option value="10+">10+ Years</option>
+              </select>
+            </section>
             <section className="w-full">
               <label htmlFor="Job category">Job category</label>
               <br />
@@ -240,7 +258,7 @@ const JobPostForm = () => {
               </select>
             </section>
           </div>
-          {/* <JobPostForm setSpecialisms={setSpecialisms}></JobPostForm> */}
+
           {loading ? (
             <h1 className="text-center font-semibold text-orange-400">
               Loading...

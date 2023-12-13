@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const auth = getAuth(app);
   const [dashboardModal, setDashboardModal] = useState(false);
+  console.log(user)
   // !  ------------------- cerate function for login,sing up and logout ----------------------
   const createUser = (email, password) => {
     setLoading(true)
