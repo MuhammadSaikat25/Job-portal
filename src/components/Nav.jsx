@@ -13,7 +13,7 @@ const Nav = () => {
     <nav className="relative">
       {/* ----------------------for desktop----------------- */}
       <div
-        className={`fixed w-full z-10 lg:flex justify-around items-center ${
+        className={`fixed w-full z-10 top-0 lg:flex justify-around items-center ${
           location.pathname === "/dashboard/profile"
             ? "bg-gray-600"
             : "bg-[#ebe4e4]"
@@ -22,7 +22,7 @@ const Nav = () => {
         <img className="w-[100px]" src={logo} alt="" />
         <div className="flex gap-5 items-center">
           <NavLink>Home</NavLink>
-          <NavLink>Find Job</NavLink>
+          <NavLink to={'jobs'}>Find Job</NavLink>
           <NavLink>Employers</NavLink>
           <NavLink>Blog</NavLink>
         </div>
@@ -41,7 +41,7 @@ const Nav = () => {
           </NavLink>
           {user === "true" && (
             <NavLink
-              to={"/dashboard/candidateOverview"}
+              to={"/dashboard/overview"}
               className="bg-blue-600 px-5 py-1 rounded-md text-white"
             >
               Dashboard

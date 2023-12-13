@@ -9,13 +9,16 @@ import LogIn from "./components/LogIn.jsx";
 import Register from "./components/Register.jsx";
 import AuthProvider from "./Firebase/AuthProvider.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
-// import DashboardProfile from "./pages/Dashboard/DashboardProfile.jsx";
-import EmployerMyProfile from "./pages/Dashboard/Employer/EmployerMyProfile.jsx";
-import EmployerDashboardProfile from "./pages/Dashboard/Employer/EmployerDashboardProfile.jsx";
-import CandidateDashboardProfile from "./pages/Dashboard/Candidate/CandidateDashboardProfile.jsx";
-import CompanyProfile from "./pages/Dashboard/Candidate/CompanyProfile.jsx";
-import PostANewJob from "./pages/Dashboard/Candidate/PostANewJob.jsx";
-import CandidatePrivateRoute from "./Firebase/Private/CandidatePrivateRoute.jsx";
+// import EmployerMyProfile from "./pages/Dashboard/Employer/EmployerMyProfile.jsx";
+// import EmployerDashboardProfile from "./pages/Dashboard/Employer/EmployerDashboardProfile.jsx";
+
+import AllJobs from "./pages/jobs/AllJobs.jsx";
+// import EmployerPrivateRoute from "./Firebase/Private/EmployerPrivateRoute.jsx"
+import DashboardOverview from "./pages/Dashboard/DashboardOverview.jsx";
+import CompanyProfile from "./pages/Dashboard/Employer/CompanyProfile.jsx";
+import PostJob from "./pages/Dashboard/Employer/PostJob.jsx";
+import ManageJob from "./pages/Dashboard/Employer/ManageJob.jsx";
+import AllApplicants from "./pages/Dashboard/Employer/AllApplicants.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/jobs",
+        element: <AllJobs></AllJobs>,
       },
     ],
   },
@@ -37,31 +44,31 @@ const router = createBrowserRouter([
     element: <Register></Register>,
   },
   {
-    path:"dashboard",
-    element:<Dashboard></Dashboard>,
-    children:[
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
       {
-        path:'overview',
-        element:<EmployerDashboardProfile></EmployerDashboardProfile>
+        path: "overview",
+        element: <DashboardOverview></DashboardOverview>,
       },
       {
-        path:'myProfile',
-        element:<EmployerMyProfile></EmployerMyProfile>
+        path: "companyProfile",
+        element: <CompanyProfile></CompanyProfile>,
       },
       {
-        path:"candidateOverview",
-        element:<CandidatePrivateRoute><CandidateDashboardProfile></CandidateDashboardProfile></CandidatePrivateRoute>
+        path:'postJob',
+        element:<PostJob></PostJob>
       },
       {
-        path:'companyProfile',
-        element:<CandidatePrivateRoute><CompanyProfile></CompanyProfile></CandidatePrivateRoute>
+        path:'manageJob',
+        element:<ManageJob></ManageJob>
       },
       {
-        path:'postNewJob',
-        element:<CandidatePrivateRoute><PostANewJob></PostANewJob></CandidatePrivateRoute>
+        path:'allApplicants',
+        element:<AllApplicants></AllApplicants>
       }
-    ]
-  }
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

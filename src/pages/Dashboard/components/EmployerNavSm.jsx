@@ -10,8 +10,10 @@ import { BsBackpack4 } from "react-icons/bs";
 import { FiBookmark } from "react-icons/fi";
 import { CiLogin } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
-import { AuthContext } from "../../../../Firebase/AuthProvider";
-const CandidateNabSM = () => {
+import { AuthContext } from "../../../Firebase/AuthProvider";
+
+
+const EmployerNavSm = () => {
   const { dashboardModal, setDashboardModal } = useContext(AuthContext);
   return (
     <div className="flex flex-col bg-slate-950 text-white h-screen justify-between p-3 w-[50%] fixed top-0 z-50">
@@ -109,4 +111,4 @@ const CandidateNabSM = () => {
   );
 };
 
-export default CandidateNabSM;
+export default EmployerNavSm;

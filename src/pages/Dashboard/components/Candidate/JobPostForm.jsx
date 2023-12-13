@@ -69,11 +69,13 @@ const JobPostForm = () => {
       country,
       offeredSalary,
       careerLevel,
-      company: company?.email,
+      company: company?.name,
       position,
       jobType,
       postDate,
+      companyEmail:company?.email
     };
+   
     const postJob = await axiosInterceptor.post(`/postJob`, jobData);
     toast("Job Post Successful");
     setLoading(false);
@@ -216,6 +218,7 @@ const JobPostForm = () => {
                 name="Country"
                 id="Country"
                 placeholder="Bangladesh"
+                required
               />
             </section>
           </div>
