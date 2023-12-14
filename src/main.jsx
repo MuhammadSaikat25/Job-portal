@@ -21,6 +21,7 @@ import ManageJob from "./pages/Dashboard/Employer/ManageJob.jsx";
 import AllApplicants from "./pages/Dashboard/Employer/AllApplicants.jsx";
 import MyProfile from "./pages/Dashboard/Candidate/MyProfile.jsx";
 import ShortlistedJobs from "./pages/Dashboard/Candidate/ShortlistedJobs.jsx";
+import JobDetails from "./pages/jobs/JobDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: "/jobs",
         element: <AllJobs></AllJobs>,
       },
+      {
+        path:`jobDetails/:id`,
+        element:<JobDetails></JobDetails>
+      }
     ],
   },
   {

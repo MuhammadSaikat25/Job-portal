@@ -76,7 +76,7 @@ const SingleJobs = ({ jobs }) => {
       <img className="w-[30px] " src={companyImg} alt="" />
       {/* ---------------------- */}
       <div className="w-full py-6">
-        <h1 className="text-gray-700 font-semibold">{jobsTitle}</h1>
+        <Link to={`/jobDetails/${_id}`} className="text-gray-700 font-semibold">{jobsTitle}</Link>
         <div className="flex items-center justify-between w-fit">
           <section className="flex items-center gap-1">
             <img className="w-[20px]" src={bag} alt="" />
