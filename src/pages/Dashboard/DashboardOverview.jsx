@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Firebase/AuthProvider";
 import { CiMenuBurger } from "react-icons/ci";
 import EmployerNavSm from "./components/Employer/EmployerNavSm";
+import CandidateNavSm from "./components/Candidate/CandidateNavSm";
 const DashboardOverview = () => {
   const { setDashboardModal, dashboardModal } = useContext(AuthContext);
   return (
@@ -13,7 +14,7 @@ const DashboardOverview = () => {
         >
           <CiMenuBurger ></CiMenuBurger>
         </h1>
-        {dashboardModal && <EmployerNavSm></EmployerNavSm>}
+        {dashboardModal && <CandidateNavSm></CandidateNavSm>}
       </div>
       <h1>Overview</h1>
     </div>

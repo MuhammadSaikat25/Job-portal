@@ -31,7 +31,7 @@ const CandidateNav = () => {
             <h1>Applied Jobs</h1>
           </span>
         </NavLink>
-        <NavLink>
+        <NavLink to={`/dashboard/ShortlistedJobs`}>
           <span>
             <h1>Shortlisted Jobs</h1>
           </span>

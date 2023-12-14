@@ -6,14 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { CiBookmark } from "react-icons/ci";
 import { useContext } from "react";
 import { AuthContext } from "../../Firebase/AuthProvider";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useAxiosInterceptor from "../../hooks/useAxiosInterceptor";
 
 const SingleJobs = ({ jobs }) => {
-  const axiosInterceptor=useAxiosInterceptor()
+  const axiosInterceptor = useAxiosInterceptor();
   const { user } = useContext(AuthContext);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const {
     _id,
     careerLevel,
@@ -29,20 +29,46 @@ const SingleJobs = ({ jobs }) => {
     position,
     postDate,
   } = jobs;
-  const markJob = async(id, companyEmail) => {
-    if(!user){
-       toast('Login')
-      setTimeout(()=>{
-        navigate('/login')
-      },1000)
-      return
+  const markJob = async (
+    _id,
+    careerLevel,
+    company,
+    companyEmail,
+    companyImg,
+    country,
+    deadline,
+    jobDescription,
+    jobType,
+    jobsTitle,
+    offeredSalary,
+    position,
+    postDate
+  ) => {
+    if (!user) {
+      toast("Login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+      return;
     }
-    const data={
-      jobId:id,
-      companyEmail
-    }
-   const res=await axiosInterceptor.post(`/markJob`,data)
-   console.log(res.data)
+    const data = {
+      jobId:_id,
+      careerLevel,
+      company,
+      companyEmail,
+      companyImg,
+      country,
+      deadline,
+      jobDescription,
+      jobType,
+      jobsTitle,
+      offeredSalary,
+      position,
+      postDate,
+      candidate: user?.email,
+    };
+   
+     const res=await axiosInterceptor.post(`/markJob`,data)
   };
   return (
     <div className="border items-center border-black flex gap-2 justify-between  w-full lg:w-[70%] p-2  rounded-md mx-auto cursor-pointer">
@@ -76,7 +102,26 @@ const SingleJobs = ({ jobs }) => {
         </div>
       </div>
       {/* ------------------------ */}
-      <div onClick={() => markJob(_id, companyEmail)} className="">
+      <div
+        onClick={() =>
+          markJob(
+            _id,
+            careerLevel,
+            company,
+            companyEmail,
+            companyImg,
+            country,
+            deadline,
+            jobDescription,
+            jobType,
+            jobsTitle,
+            offeredSalary,
+            position,
+            postDate
+          )
+        }
+        className=""
+      >
         <CiBookmark></CiBookmark>
       </div>
     </div>
