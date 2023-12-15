@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosInterceptor from "../../hooks/useAxiosInterceptor";
 import bag from "../../assets/bag.png";
@@ -10,17 +10,50 @@ import { CiCalendarDate } from "react-icons/ci";
 import { FaHourglassEnd } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import { AuthContext } from "../../Firebase/AuthProvider";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
 const JobDetails = () => {
+  const { user } = useContext(AuthContext);
   const axiosInterceptor = useAxiosInterceptor();
   const [modal, setModal] = useState(false);
   const { id } = useParams();
   const [job, setJob] = useState({});
+  const [pdf, setPdf] = useState();
+  const email = user?.email;
+
+  // ! --------------- get the job data------------------
   useEffect(() => {
     axiosInterceptor.get(`/getSingleJob/${id}`).then((res) => setJob(res.data));
   }, [id]);
-  //   console.log(job)
+  // ! -------------------- Apply to the job---------------
+  const jobApply = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const candidateEmail = email;
+    const companyEmail = job.companyEmail;
+    const jobId = job._id;
+  
+    formData.append("candidate", candidateEmail);
+    formData.append("companyEmail", companyEmail);
+    formData.append("jobId", jobId);
+    formData.append("pdf", pdf);
+    
+    const applyInAJOb = await axiosInterceptor.post(`/uploadFile/${user?.email}`, formData, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    if(applyInAJOb.status===200){
+      toast('Applied SuccessFull')
+    }
+    const incrementAppliedNum=await axiosInterceptor.patch(`/addApplied/${jobId}`)
+  };
+
   return (
     <div className="lg:mt-[56px]">
+      <ToastContainer></ToastContainer>
       <div className="bg-slate-100 p-10 py-20 relative">
         <div className=" max-w-7xl mx-auto w-ful flex flex-col px-10 lg:px-0 lg:flex-row gap-3">
           <img
@@ -139,12 +172,33 @@ const JobDetails = () => {
       </div>
       {modal && (
         <div className="w-[70%] lg:w-[40%] h-fit fixed top-[200px] right-[70px] lg:right-[450px] rounded-lg lg:top-[300px] bg-white border  p-5 border-black">
-            <span className="text-right " onClick={()=>setModal(false)}><AiOutlineClose color="blue"></AiOutlineClose></span>
-            <div className="text-center">
-                <h1 className="text-gray-900 font-semibold mb-3">Apply for this job</h1>
-                <h1 className="border border-dashed p-4 border-black rounded-md">Upload CV (doc, docx, pdf)</h1>
-                <button className="text-white w-full p-1 rounded-md bg-blue-700 mt-3">Apply Job</button>
-            </div>
+          <span className="text-right " onClick={() => setModal(false)}>
+            <AiOutlineClose color="blue"></AiOutlineClose>
+          </span>
+          <form onSubmit={jobApply} className="text-center">
+            <h1 className="text-gray-900 font-semibold mb-3">
+              Apply for this job
+            </h1>
+            <label
+              className="border border-dashed px-16 py-2 cursor-pointer rounded border-black"
+              htmlFor="pdf"
+            >
+              Upload Your Pdf
+            </label>
+            <input
+              type="file"
+              id="pdf"
+              name="pdf"
+              className="hidden "
+              onChange={(e) => setPdf(e.target.files[0])}
+              required
+            />
+            <button
+              className="text-white w-full p-1 rounded-md bg-blue-700 mt-3"
+            >
+              Apply Job
+            </button>
+          </form>
         </div>
       )}
     </div>
@@ -152,3 +206,15 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
+// const companyImg=job.companyImg
+// const jobDescription=job.jobDescription
+// const jobsTitle=job.jobsTitle
+// const deadline=job.deadline
+// const country=job.country
+// const offeredSalary=job.offeredSalary
+// const careerLevel=job.careerLevel
+// const position=job.position
+// const jobType =job.jobType
+// const postDate=job.postDate
+// const expareanice=job.expareanice
+// const company=job.company

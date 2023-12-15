@@ -32,7 +32,7 @@ const Nav = () => {
           </NavLink>
           <Link
             to={"/login"}
-            className="bg-blue-300 px-5 py-1 rounded-md text-white hover:bg-purple-950 duration-500"
+            className="bg-blue-200 px-5 py-1 rounded-md text-blue-600 duration-500"
           >
             Login/Register
           </Link>

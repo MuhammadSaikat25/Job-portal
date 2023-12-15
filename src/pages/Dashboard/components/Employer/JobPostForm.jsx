@@ -75,7 +75,8 @@ const JobPostForm = () => {
       jobType,
       postDate,
       companyEmail: company?.email,
-      expareanice
+      expareanice,
+      applied:Number(0)
     };
 
     const postJob = await axiosInterceptor.post(`/postJob`, jobData);
