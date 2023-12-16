@@ -13,6 +13,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AuthContext } from "../../Firebase/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moment from "moment";
 
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
@@ -22,7 +23,8 @@ const JobDetails = () => {
   const [job, setJob] = useState({});
   const [pdf, setPdf] = useState();
   const email = user?.email;
-
+  const currentDate = moment();
+  const applyDate = currentDate.format("MM/DD/YYYY");
   // ! --------------- get the job data------------------
   useEffect(() => {
     axiosInterceptor.get(`/getSingleJob/${id}`).then((res) => setJob(res.data));
@@ -30,16 +32,42 @@ const JobDetails = () => {
   // ! -------------------- Apply to the job---------------
   const jobApply = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
+    // const formData = new FormData();
     const candidateEmail = email;
     const companyEmail = job.companyEmail;
     const jobId = job._id;
+    const companyImg = job.companyImg;
+    const jobDescription = job.jobDescription;
+    const jobsTitle = job.jobsTitle;
+    const deadline = job.deadline;
+    const country = job.country;
+    const offeredSalary = job.offeredSalary;
+    const careerLevel = job.careerLevel;
+    const position = job.position;
+    const jobType = job.jobType;
+    const postDate = job.postDate;
+    const expareanice = job.expareanice;
+    const company = job.company;
 
-    formData.append("candidate", candidateEmail);
-    formData.append("companyEmail", companyEmail);
-    formData.append("jobId", jobId);
-    formData.append("pdf", pdf);
-
+    const formData = {
+      applyDate,
+      jobId,
+      companyEmail,
+      pdf,
+      candidateEmail,
+      careerLevel,
+      company,
+      companyImg,
+      jobDescription,
+      expareanice,
+      postDate,
+      position,
+      offeredSalary,
+      deadline,
+      country,
+      jobType,
+      jobsTitle,
+    };
     const applyInAJOb = await axiosInterceptor.post(
       `/uploadFile/${user?.email}`,
       formData,
@@ -210,15 +238,8 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
-// const companyImg=job.companyImg
-// const jobDescription=job.jobDescription
-// const jobsTitle=job.jobsTitle
-// const deadline=job.deadline
-// const country=job.country
-// const offeredSalary=job.offeredSalary
-// const careerLevel=job.careerLevel
-// const position=job.position
-// const jobType =job.jobType
-// const postDate=job.postDate
-// const expareanice=job.expareanice
-// const company=job.company
+// formData.append("candidate", candidateEmail);
+// formData.append("companyEmail", companyEmail);
+// formData.append("jobId", jobId);
+// formData.append("pdf", pdf);
+// formData.append("applyDate", applyDate);

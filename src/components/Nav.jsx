@@ -23,7 +23,6 @@ const Nav = () => {
         <div className="flex gap-5 items-center">
           <NavLink>Home</NavLink>
           <NavLink to={'jobs'}>Find Job</NavLink>
-          <NavLink>Employers</NavLink>
           <NavLink>Blog</NavLink>
         </div>
         <div className="flex gap-5 items-center">

@@ -27,7 +27,7 @@ const CandidateNavSm = () => {
           <h1>My Profile</h1>
         </span>
       </NavLink>
-      <NavLink>
+      <NavLink to={'/dashboard/appliedJob'}>
         <span>
           <h1>Applied Jobs</h1>
         </span>

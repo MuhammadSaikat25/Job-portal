@@ -22,6 +22,7 @@ import AllApplicants from "./pages/Dashboard/Employer/AllApplicants.jsx";
 import MyProfile from "./pages/Dashboard/Candidate/MyProfile.jsx";
 import ShortlistedJobs from "./pages/Dashboard/Candidate/ShortlistedJobs.jsx";
 import JobDetails from "./pages/jobs/JobDetails.jsx";
+import AppliedJobs from "./pages/Dashboard/Candidate/AppliedJobs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,9 @@ const router = createBrowserRouter([
       {
         path:'ShortlistedJobs',
         element:<ShortlistedJobs></ShortlistedJobs>
+      },{
+        path:'appliedJob',
+        element:<AppliedJobs></AppliedJobs>
       }
     ],
   },
