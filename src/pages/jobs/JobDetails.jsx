@@ -11,8 +11,8 @@ import { FaHourglassEnd } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { AuthContext } from "../../Firebase/AuthProvider";
-import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
@@ -34,21 +34,27 @@ const JobDetails = () => {
     const candidateEmail = email;
     const companyEmail = job.companyEmail;
     const jobId = job._id;
-  
+
     formData.append("candidate", candidateEmail);
     formData.append("companyEmail", companyEmail);
     formData.append("jobId", jobId);
     formData.append("pdf", pdf);
-    
-    const applyInAJOb = await axiosInterceptor.post(`/uploadFile/${user?.email}`, formData, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
-    if(applyInAJOb.status===200){
-      toast('Applied SuccessFull')
+
+    const applyInAJOb = await axiosInterceptor.post(
+      `/uploadFile/${user?.email}`,
+      formData,
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }
+    );
+    if (applyInAJOb.status === 200) {
+      toast("Applied SuccessFull");
     }
-    const incrementAppliedNum=await axiosInterceptor.patch(`/addApplied/${jobId}`)
+    const incrementAppliedNum = await axiosInterceptor.patch(
+      `/addApplied/${jobId}`
+    );
   };
 
   return (
@@ -193,9 +199,7 @@ const JobDetails = () => {
               onChange={(e) => setPdf(e.target.files[0])}
               required
             />
-            <button
-              className="text-white w-full p-1 rounded-md bg-blue-700 mt-3"
-            >
+            <button className="text-white w-full p-1 rounded-md bg-blue-700 mt-3">
               Apply Job
             </button>
           </form>
