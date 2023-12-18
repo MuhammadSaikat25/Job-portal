@@ -35,10 +35,10 @@ const AllApplicants = () => {
       {/* --------------------- */}
       {dashboardModal && <EmployerNavSm></EmployerNavSm>}
       <div className="">
-        <h1>All Applicants!</h1>
-        <h1>Ready to jump back in?</h1>
-        <div className="bg-white p-3">
-          <div className="flex items-center gap-4">
+        <h1 className="text-gray-700 font-semibold text-3xl">All Applicants!</h1>
+        <h1 className="mt-3">Ready to jump back in?</h1>
+        <div className="bg-white p-3 rounded-lg mt-4">
+          <div className="flex items-center gap-4 mb-5">
             <h1 className="text-gray-700 font-semibold ">Total: {applicant?.length}</h1>
             <h1 className="text-green-600 font-semibold"> Approved: {approved?.length}</h1>
             <h1 className="text-red-600 font-semibold">Rejected:{reject?.length}</h1>

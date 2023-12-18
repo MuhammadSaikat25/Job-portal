@@ -71,7 +71,7 @@ const SingleJobs = ({ jobs }) => {
      const res=await axiosInterceptor.post(`/markJob`,data)
   };
   return (
-    <div className="border items-center border-black flex gap-2 justify-between  w-full lg:w-[70%] p-2  rounded-md mx-auto cursor-pointer">
+    <div className="border items-center border-black  h-fit flex gap-2 justify-between  w-full lg:w-[70%] p-2  rounded-md mx-auto cursor-pointer">
       <ToastContainer></ToastContainer>
       <img className="w-[30px] " src={companyImg} alt="" />
       {/* ---------------------- */}
@@ -124,6 +124,7 @@ const SingleJobs = ({ jobs }) => {
       >
         <CiBookmark></CiBookmark>
       </div>
+     
     </div>
   );
 };
