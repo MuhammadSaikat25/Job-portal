@@ -23,6 +23,7 @@ import MyProfile from "./pages/Dashboard/Candidate/MyProfile.jsx";
 import ShortlistedJobs from "./pages/Dashboard/Candidate/ShortlistedJobs.jsx";
 import JobDetails from "./pages/jobs/JobDetails.jsx";
 import AppliedJobs from "./pages/Dashboard/Candidate/AppliedJobs.jsx";
+import EmployerRoute from "./Firebase/Private/EmployerRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,19 +62,19 @@ const router = createBrowserRouter([
       },
       {
         path: "companyProfile",
-        element: <CompanyProfile></CompanyProfile>,
+        element: <EmployerRoute><CompanyProfile></CompanyProfile>,</EmployerRoute>
       },
       {
         path:'postJob',
-        element:<PostJob></PostJob>
+        element:<EmployerRoute><PostJob></PostJob></EmployerRoute>
       },
       {
         path:'manageJob',
-        element:<ManageJob></ManageJob>
+        element:<EmployerRoute><ManageJob></ManageJob></EmployerRoute>
       },
       {
         path:'allApplicants',
-        element:<AllApplicants></AllApplicants>
+        element:<EmployerRoute><AllApplicants></AllApplicants></EmployerRoute>
       },
       {
         path:'myProfile',

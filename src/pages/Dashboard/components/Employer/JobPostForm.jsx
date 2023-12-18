@@ -265,7 +265,7 @@ const JobPostForm = () => {
               Loading...
             </h1>
           ) : (
-            <button className="w-full bg-blue-600 p-1 text-white rounded-md mt-5">
+            <button className="w-full bg-blue-700 p-1 text-white rounded-md mt-5">
               Post Job
             </button>
           )}

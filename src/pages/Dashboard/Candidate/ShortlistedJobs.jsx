@@ -23,7 +23,7 @@ const ShortlistedJobs = () => {
   const deleteMarkJob = async (id) => {
     setOpen(false);
     setId(id);
-    const res = await axiosInterceptor.delete(`deletedSortListJob/${id}`);
+    const res = await axiosInterceptor.delete(`/deletedSortListJob/${id}`);
   };
   // ! ------------------ useEffect for get All get Bookmark jobs------------------
   useEffect(() => {

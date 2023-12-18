@@ -1,22 +1,22 @@
-import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { IoHome } from "react-icons/io5";
+import { Link, NavLink } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
-import { FaUserTie } from "react-icons/fa6";
-import { MdOutlineAddLink } from "react-icons/md";
-import { IoIosPaper } from "react-icons/io";
-import { BsBackpack4 } from "react-icons/bs";
-import { FiBookmark } from "react-icons/fi";
-import { CiLogin } from "react-icons/ci";
 import { IoIosCloseCircle } from "react-icons/io";
 import { AuthContext } from "../../../../Firebase/AuthProvider";
-
-
+import { IoHome } from "react-icons/io5";
+import { CiLogin } from "react-icons/ci";
+import { useContext } from "react";
+import { IoSendOutline } from "react-icons/io5";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { IoIosPaper } from "react-icons/io";
 const EmployerNavSm = () => {
-  const { dashboardModal, setDashboardModal } = useContext(AuthContext);
+  const { setDashboardModal,userOut } = useContext(AuthContext);
+  const singOut=async()=>{
+    await userOut()
+    navigate('/')
+   }
   return (
-    <div className="flex flex-col bg-slate-950 text-white h-screen justify-between p-3 w-[50%] fixed top-0 z-50">
-      <button onClick={()=>setDashboardModal(false)}>
+    <div className="flex flex-col bg-slate-950 text-white h-screen justify-between p-3 w-[50%] fixed top-0 z-50 lg:hidden">
+      <button onClick={() => setDashboardModal(false)}>
         <span className="flex justify-end">
           <IoIosCloseCircle size={25}></IoIosCloseCircle>
         </span>
@@ -24,88 +24,66 @@ const EmployerNavSm = () => {
       </button>
       <NavLink
         className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
+          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
         }
-        to={"/dashboard/candidateOverview"}
+        to={"/dashboard/overview"}
       >
-        <div className="flex items-center gap-2">
+        <span className="flex items-center gap-1">
           <IoHome></IoHome>
-          <span>Dashboard</span>
-        </div>
+          <h1>OverView</h1>
+        </span>
       </NavLink>
-
       <NavLink
+        className={({ isActive }) =>
+          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+        }
         to={"/dashboard/companyProfile"}
-        className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
-        }
       >
-        <div className="flex items-center gap-2">
-          <FaUserTie></FaUserTie>
+        <span className="flex items-center gap-1">
+          <AiOutlineUser></AiOutlineUser>
           <h1>Company Profile</h1>
-        </div>
+        </span>
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
+          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
         }
+        to={`/dashboard/postJob`}
       >
-        <div className="flex items-center gap-2">
-          <BsBackpack4></BsBackpack4>
-          <h1>Manage Jobs</h1>
-        </div>
+        <span className="flex items-center gap-2">
+          <IoSendOutline></IoSendOutline>
+          <h1>Post A JOb</h1>
+        </span>
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
+          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
         }
+        to={`/dashboard/manageJob`}
       >
-        <div className="flex items-center gap-2">
-          <MdOutlineAddLink></MdOutlineAddLink>
-          <h1>Post A New Job</h1>
-        </div>
+        <span className="flex items-center gap-2">
+          <MdOutlineManageAccounts></MdOutlineManageAccounts>
+          <h1>Manage Job</h1>
+        </span>
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
+          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
         }
+        to={`/dashboard/allApplicants`}
       >
-        <div className="flex items-center gap-2">
+        <span className="flex items-center gap-2">
           <IoIosPaper></IoIosPaper>
           <h1>All Applicants</h1>
-        </div>
+        </span>
       </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
-        }
-      >
-        <div className="flex items-center gap-2">
-          <FiBookmark></FiBookmark>
-          <h1>Shortlisted Resumes</h1>
-        </div>
-      </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
-        }
-      >
-        <div className="flex items-center gap-2">
+      <Link onClick={singOut}>
+        <span className="flex items-center gap-2">
           <CiLogin></CiLogin>
           <h1>Logout</h1>
-        </div>
-      </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          isActive && "  bg-slate-200  p-1 text-blue-500 rounded"
-        }
-        to={"/"}
-      >
-        <div className="flex items-center gap-2">
-          <IoHome></IoHome>
-          <h1>Home</h1>
-        </div>
-      </NavLink>
+        </span>
+      </Link>
+      <Link to={"/"}>Home</Link>
     </div>
   );
 };
