@@ -25,15 +25,17 @@ const JobDetails = () => {
   const email = user?.email;
   const currentDate = moment();
   const applyDate = currentDate.format("MM/DD/YYYY");
-  const [candidate,setCandidate]=useState({})
-  const candidateImg=candidate?.img
-  const candidateName=candidate?.name
-  const candidateJob=candidate?.job
+  const [candidate, setCandidate] = useState({});
+  const candidateImg = candidate?.img;
+  const candidateName = candidate?.name;
+  const candidateJob = candidate?.job;
   // ! --------------- get the job data------------------
   useEffect(() => {
     axiosInterceptor.get(`/getSingleJob/${id}`).then((res) => setJob(res.data));
-    axiosInterceptor.get(`/loginUser/${user?.email}`).then(res=>setCandidate(res.data))
-  }, [id,user?.email]);
+    axiosInterceptor
+      .get(`/loginUser/${user?.email}`)
+      .then((res) => setCandidate(res.data));
+  }, [id, user?.email]);
   // ! -------------------- Apply to the job---------------
   const jobApply = async (e) => {
     e.preventDefault();
@@ -53,7 +55,7 @@ const JobDetails = () => {
     const postDate = job.postDate;
     const expareanice = job.expareanice;
     const company = job.company;
-    
+
     const formData = {
       applyDate,
       jobId,
@@ -74,7 +76,7 @@ const JobDetails = () => {
       country,
       jobType,
       jobsTitle,
-      candidateImg
+      candidateImg,
     };
     const applyInAJOb = await axiosInterceptor.post(
       `/uploadFile/${user?.email}`,
