@@ -5,22 +5,50 @@ import { FaRegEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { CiMenuBurger } from "react-icons/ci";
+import EmployerNavSm from "../components/Employer/EmployerNavSm";
 
 const ManageJob = () => {
   const axiosInterceptor = useAxiosInterceptor();
-  const { user } = useContext(AuthContext);
+  const {setDashboardModal, dashboardModal, user } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
-
+  const [id, setId] = useState("");
   useEffect(() => {
     if (user?.email) {
       axiosInterceptor
         .get(`/Employers/${user?.email}`)
-        .then((res) => setJobs(res.data));
+        .then((res) => {
+          const data = res.data;
+          const restJobs = data?.filter((data) => data._id !== id);
+          setJobs(restJobs);
+        });
     }
-  }, [user?.email]);
+  }, [user?.email,id]);
 
+  const deleteJob=async(id)=>{
+    setId(id)
+      try {
+        const res=await axiosInterceptor.delete(`${import.meta.env.VITE_SERVER}/deleteJob/${id}`)
+       if(res.status===200){
+        toast("Job Delete Successful")
+       }
+      } catch (error) {
+        
+      }
+  }
   return (
     <div className="lg:px-[200px] mt-5 ">
+      <ToastContainer></ToastContainer>
+      <div
+        onClick={() => setDashboardModal(true)}
+        className="flex items-center gap-2 lg:hidden cursor-pointer"
+      >
+        <CiMenuBurger className="text-2xl" />
+        <h1>Menu</h1>
+      </div>
+      {dashboardModal && <EmployerNavSm />}
       <h1 className="text-3xl text-gray-800 font-semibold">Manage jobs!</h1>
       <h1>Ready to jump back in?</h1>
       <div className="bg-white p-4 rounded-md mt-5 shadow-md shadow-gray-400">
@@ -90,7 +118,7 @@ const ManageJob = () => {
                         <FaPencil color="blue"></FaPencil>
                       </Link>
                     </span>
-                    <span className="cursor-pointer bg-blue-200 p-1 rounded-md">
+                    <span onClick={()=>deleteJob(job._id)} className="cursor-pointer bg-blue-200 p-1 rounded-md">
                       <MdDeleteForever color="blue"></MdDeleteForever>
                     </span>
                   </div>

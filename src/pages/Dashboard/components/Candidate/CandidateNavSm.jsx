@@ -20,14 +20,13 @@ const CandidateNavSm = () => {
         </span>
         <hr />
       </button>
-      <NavLink to={"/dashboard/overview"}>OverView</NavLink>
       <NavLink to={`/dashboard/myProfile`}>
         <span className="flex items-center gap-1">
           <AiOutlineUser></AiOutlineUser>
           <h1>My Profile</h1>
         </span>
       </NavLink>
-      <NavLink to={'/dashboard/appliedJob'}>
+      <NavLink to={"/dashboard/appliedJob"}>
         <span>
           <h1>Applied Jobs</h1>
         </span>

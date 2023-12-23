@@ -10,28 +10,42 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Firebase/AuthProvider";
 
 const CandidateNav = () => {
-  const {userOut}=useContext(AuthContext)
-  const navigate=useNavigate()
-  const singOut=async()=>{
-   await userOut()
-   navigate('/')
-  }
+  const { userOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const singOut = async () => {
+    await userOut();
+    navigate("/");
+  };
   return (
     <div className="">
       <div className="hidden lg:flex flex-col h-screen justify-around">
-        <NavLink to={"/dashboard/overview"}>OverView</NavLink>
-        <NavLink to={`/dashboard/myProfile`}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={`/dashboard/myProfile`}
+        >
           <span className="flex items-center gap-1">
             <AiOutlineUser></AiOutlineUser>
             <h1>My Profile</h1>
           </span>
         </NavLink>
-        <NavLink to={'/dashboard/appliedJob'}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={"/dashboard/appliedJob"}
+        >
           <span>
             <h1>Applied Jobs</h1>
           </span>
         </NavLink>
-        <NavLink to={`/dashboard/ShortlistedJobs`}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={`/dashboard/ShortlistedJobs`}
+        >
           <span>
             <h1>Shortlisted Jobs</h1>
           </span>

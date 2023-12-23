@@ -2,18 +2,17 @@ import { Link, NavLink } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { IoIosCloseCircle } from "react-icons/io";
 import { AuthContext } from "../../../../Firebase/AuthProvider";
-import { IoHome } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
 import { useContext } from "react";
 import { IoSendOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosPaper } from "react-icons/io";
 const EmployerNavSm = () => {
-  const { setDashboardModal,userOut } = useContext(AuthContext);
-  const singOut=async()=>{
-    await userOut()
-    navigate('/')
-   }
+  const { setDashboardModal, userOut } = useContext(AuthContext);
+  const singOut = async () => {
+    await userOut();
+    navigate("/");
+  };
   return (
     <div className="flex flex-col bg-slate-950 text-white h-screen justify-between p-3 w-[50%] fixed top-0 z-50 lg:hidden">
       <button onClick={() => setDashboardModal(false)}>
@@ -22,17 +21,6 @@ const EmployerNavSm = () => {
         </span>
         <hr />
       </button>
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
-        }
-        to={"/dashboard/overview"}
-      >
-        <span className="flex items-center gap-1">
-          <IoHome></IoHome>
-          <h1>OverView</h1>
-        </span>
-      </NavLink>
       <NavLink
         className={({ isActive }) =>
           isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""

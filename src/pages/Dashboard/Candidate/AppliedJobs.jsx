@@ -3,12 +3,12 @@ import { AuthContext } from "../../../Firebase/AuthProvider";
 import { CiMenuBurger } from "react-icons/ci";
 import CandidateNavSm from "../components/Candidate/CandidateNavSm";
 import useAxiosInterceptor from "../../../hooks/useAxiosInterceptor";
-import { FaRegEye } from "react-icons/fa";
 
 const AppliedJobs = () => {
   const { dashboardModal, setDashboardModal, user } = useContext(AuthContext);
   const axiosInterceptor = useAxiosInterceptor();
   const [myApply, setMyApply] = useState([]);
+  
   useEffect(() => {
     axiosInterceptor
       .get(`/userAppliedJob/${user?.email}`)
@@ -32,7 +32,8 @@ const AppliedJobs = () => {
       </div>
       {dashboardModal && <CandidateNavSm />}
       {/* --------------------------- */}
-      <div className="mt-5 bg-white p-4 rounded ">
+      {
+        myApply?.length>0?<div className="mt-5 bg-white p-4 rounded ">
         <table className="w-full border-collapse">
           <thead className="bg-slate-200 rounded-3xl text-blue-600">
             <tr className="">
@@ -83,7 +84,8 @@ const AppliedJobs = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div>:<h1 className="mt-[20px] text-gray-800 text-3xl">Applied not Found</h1>
+      }
     </div>
   );
 };

@@ -9,40 +9,43 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosPaper } from "react-icons/io";
 
 const EmployerNav = () => {
-  const {userOut}=useContext(AuthContext)
-  const navigate=useNavigate()
-  const singOut=async()=>{
-   await userOut()
-   navigate('/')
-  }
+  const { userOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const singOut = async () => {
+    await userOut();
+    navigate("/");
+  };
   return (
     <div className="">
       <div className="hidden lg:flex flex-col h-screen justify-around">
-        <NavLink className={({isActive})=>isActive? "bg-blue-200 text-blue-600 p-1 rounded":'' } to={"/dashboard/overview"}>
-        <span className="flex items-center gap-1">
-          <IoHome></IoHome>
-            <h1>OverView</h1>
-          </span>
-        </NavLink>
-        <NavLink className={({isActive})=>isActive? "bg-blue-200 text-blue-600 p-1 rounded":'' } to={"/dashboard/companyProfile"}>
-          <span className="flex items-center gap-1">
-            <AiOutlineUser></AiOutlineUser>
-            <h1>Company Profile</h1>
-          </span>
-        </NavLink>
-        <NavLink className={({isActive})=>isActive? "bg-blue-200 text-blue-600 p-1 rounded":'' } to={`/dashboard/postJob`}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={`/dashboard/postJob`}
+        >
           <span className="flex items-center gap-2">
             <IoSendOutline></IoSendOutline>
             <h1>Post A JOb</h1>
           </span>
         </NavLink>
-        <NavLink className={({isActive})=>isActive? "bg-blue-200 text-blue-600 p-1 rounded":'' } to={`/dashboard/manageJob`}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={`/dashboard/manageJob`}
+        >
           <span className="flex items-center gap-2">
             <MdOutlineManageAccounts></MdOutlineManageAccounts>
             <h1>Manage Job</h1>
           </span>
         </NavLink>
-        <NavLink className={({isActive})=>isActive? "bg-blue-200 text-blue-600 p-1 rounded":'' } to={`/dashboard/allApplicants`}>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
+          to={`/dashboard/allApplicants`}
+        >
           <span className="flex items-center gap-2">
             <IoIosPaper></IoIosPaper>
             <h1>All Applicants</h1>

@@ -31,12 +31,22 @@ const ManageAllApplicants = ({ applicant, setId }) => {
   };
 
   const ShowPdf = (pdf) => {
-    window.open(`${import.meta.env.VITE_SERVER}/uploads/${pdf}`,"_blank")
+    window.open(`${import.meta.env.VITE_SERVER}/uploads/${pdf}`, "_blank");
   };
   return (
     <div>
       <ToastContainer></ToastContainer>
       <div className="flex items-start gap-5 border w-full p-5 rounded">
+        <h1
+          className={`${
+            applicant.status === "Reject" && "bg-red-200 text-red-600 p-1 rounded"
+          } ${
+            applicant.status === "Approved" &&
+            "bg-green-200 text-green-600 p-1 rounded"
+          }`}
+        >
+          {applicant.status}
+        </h1>
         <img
           className="w-[80px] rounded-full h-[80px] object-cover"
           src={applicant.candidateImg}
@@ -57,20 +67,12 @@ const ManageAllApplicants = ({ applicant, setId }) => {
           </div>
           <div className="flex items-center gap-5">
             <FaRegEye onClick={() => ShowPdf(applicant.pdf)}></FaRegEye>
-            <button
-              disabled={
-                applicant.status === "Reject" || applicant.status === "Approved"
-              }
-            >
+            <button>
               <FcCheckmark
                 onClick={() => Approved(applicant._id)}
               ></FcCheckmark>
             </button>
-            <button
-              disabled={
-                applicant.status === "Reject" || applicant.status === "Approved"
-              }
-            >
+            <button>
               <IoCloseCircle
                 onClick={() => reject(applicant._id)}
               ></IoCloseCircle>
