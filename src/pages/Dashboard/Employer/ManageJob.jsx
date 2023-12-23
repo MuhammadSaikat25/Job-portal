@@ -20,7 +20,7 @@ const ManageJob = () => {
   }, [user?.email]);
 
   return (
-    <div className="px-[200px] mt-5 ">
+    <div className="lg:px-[200px] mt-5 ">
       <h1 className="text-3xl text-gray-800 font-semibold">Manage jobs!</h1>
       <h1>Ready to jump back in?</h1>
       <div className="bg-white p-4 rounded-md mt-5 shadow-md shadow-gray-400">
@@ -86,7 +86,9 @@ const ManageJob = () => {
                       </Link>
                     </span>
                     <span className="cursor-pointer bg-blue-200 p-1 rounded-md">
-                      <FaPencil color="blue"></FaPencil>
+                      <Link to={`/dashboard/updateJob/${job._id}`}>
+                        <FaPencil color="blue"></FaPencil>
+                      </Link>
                     </span>
                     <span className="cursor-pointer bg-blue-200 p-1 rounded-md">
                       <MdDeleteForever color="blue"></MdDeleteForever>
