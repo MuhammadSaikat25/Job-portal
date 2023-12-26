@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosInterceptor from "../../hooks/useAxiosInterceptor";
 import bag from "../../assets/bag.png";
 import { CiLocationOn } from "react-icons/ci";
@@ -22,14 +22,15 @@ const JobDetails = () => {
   const currentDate = moment();
   const applyDate = currentDate.format("MM/DD/YYYY");
   const [candidate, setCandidate] = useState({});
+  const navigate=useNavigate()
   // ! --------------- get the job data------------------
   useEffect(() => {
     axiosInterceptor.get(`/getSingleJob/${id}`).then((res) => setJob(res.data));
     axiosInterceptor
-      .get(`/loginUser/${user?.email}`)
+      .get(`/getCandidate/${user?.email}`)
       .then((res) => setCandidate(res.data));
   }, [id, user?.email]);
-  
+  console.log(candidate);
   // ! -------------------- Apply to the job---------------
   const jobApply = async (e) => {
     e.preventDefault();
@@ -67,7 +68,16 @@ const JobDetails = () => {
       jobsTitle,
       candidateEmail: candidate.email,
       candidateImg: candidate.img,
+      status: "pending",
     };
+    if(!candidate._id){
+      toast("Create profile First")
+      setTimeout(()=>{
+        navigate('/dashboard/myProfile')
+      },1000)
+      return
+    }
+    console.log(applyData);
     const applyInAJOb = await axiosInterceptor.post(`/applyJob`, applyData);
     if (applyInAJOb.status === 200) {
       toast("Applied SuccessFull");
@@ -201,4 +211,3 @@ const JobDetails = () => {
 };
 
 export default JobDetails;
-

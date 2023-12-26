@@ -5,7 +5,7 @@ import useAxiosInterceptor from "../../hooks/useAxiosInterceptor";
 import CandidateNav from "./Candidate/CandidateNav";
 const DashboardNav = () => {
   const [role, setRole] = useState();
-  // console.log(role)
+ 
   const { user } = useContext(AuthContext);
   const axiosInterceptor = useAxiosInterceptor();
   useEffect(() => {
@@ -15,12 +15,14 @@ const DashboardNav = () => {
   }, [user?.email]);
   return (
     <div className="bg-[#ffffff] fixed top-0 h-full lg:p-3">
-      {role == "Employer" ? (
-        <EmployerNav></EmployerNav>
+      {role? (
+        <div className="">
+          {role === "Employer" && <EmployerNav></EmployerNav>}
+          {role === "Candidate" && <CandidateNav></CandidateNav>}
+        </div>
       ) : (
-        <CandidateNav></CandidateNav>
+        <h1>Loading ...</h1>
       )}
-    
     </div>
   );
 };

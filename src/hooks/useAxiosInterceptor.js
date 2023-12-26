@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Firebase/AuthProvider";
 
 const axiosInterceptor = axios.create({
-  baseURL: `http://localhost:5000`,
+  baseURL: `https://react-job-seven.vercel.app`,
 });
 const useAxiosInterceptor = () => {
   const { userOut } = useContext(AuthContext);
