@@ -9,7 +9,6 @@ import { CiBookmark } from "react-icons/ci";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaHourglassEnd } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { AiOutlineClose } from "react-icons/ai";
 import { AuthContext } from "../../Firebase/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,17 +17,11 @@ import moment from "moment";
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
   const axiosInterceptor = useAxiosInterceptor();
-  const [modal, setModal] = useState(false);
   const { id } = useParams();
   const [job, setJob] = useState({});
-  const [pdf, setPdf] = useState();
-  const email = user?.email;
   const currentDate = moment();
   const applyDate = currentDate.format("MM/DD/YYYY");
   const [candidate, setCandidate] = useState({});
-  const candidateImg = candidate?.img;
-  const candidateName = candidate?.name;
-  const candidateJob = candidate?.job;
   // ! --------------- get the job data------------------
   useEffect(() => {
     axiosInterceptor.get(`/getSingleJob/${id}`).then((res) => setJob(res.data));
@@ -36,11 +29,10 @@ const JobDetails = () => {
       .get(`/loginUser/${user?.email}`)
       .then((res) => setCandidate(res.data));
   }, [id, user?.email]);
+  
   // ! -------------------- Apply to the job---------------
   const jobApply = async (e) => {
     e.preventDefault();
-    // const formData = new FormData();
-    const candidateEmail = email;
     const companyEmail = job.companyEmail;
     const jobId = job._id;
     const companyImg = job.companyImg;
@@ -56,17 +48,14 @@ const JobDetails = () => {
     const expareanice = job.expareanice;
     const company = job.company;
 
-    const formData = {
+    const applyData = {
       applyDate,
       jobId,
       companyEmail,
-      pdf,
-      candidateName,
-      candidateEmail,
       careerLevel,
       company,
+      candidateName: candidate.name,
       companyImg,
-      candidateJob,
       jobDescription,
       expareanice,
       postDate,
@@ -76,17 +65,10 @@ const JobDetails = () => {
       country,
       jobType,
       jobsTitle,
-      candidateImg,
+      candidateEmail: candidate.email,
+      candidateImg: candidate.img,
     };
-    const applyInAJOb = await axiosInterceptor.post(
-      `/uploadFile/${user?.email}`,
-      formData,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      }
-    );
+    const applyInAJOb = await axiosInterceptor.post(`/applyJob`, applyData);
     if (applyInAJOb.status === 200) {
       toast("Applied SuccessFull");
     }
@@ -138,7 +120,7 @@ const JobDetails = () => {
       {/* -------------------- */}
       <div className="flex items-center top-[250px] right-[157px] gap-2 absolute lg:top-32 lg:right-40">
         <button
-          onClick={() => setModal(true)}
+          onClick={jobApply}
           className="px-5 py-2 rounded bg-blue-600 text-emerald-50"
         >
           Apply For Job
@@ -214,42 +196,9 @@ const JobDetails = () => {
           </div>
         </div>
       </div>
-      {modal && (
-        <div className="w-[70%] lg:w-[40%] h-fit fixed top-[200px] right-[70px] lg:right-[450px] rounded-lg lg:top-[300px] bg-white border  p-5 border-black">
-          <span className="text-right " onClick={() => setModal(false)}>
-            <AiOutlineClose color="blue"></AiOutlineClose>
-          </span>
-          <form onSubmit={jobApply} className="text-center">
-            <h1 className="text-gray-900 font-semibold mb-3">
-              Apply for this job
-            </h1>
-            <label
-              className="border border-dashed px-16 py-2 cursor-pointer rounded border-black"
-              htmlFor="pdf"
-            >
-              Upload Your Pdf
-            </label>
-            <input
-              type="file"
-              id="pdf"
-              name="pdf"
-              className="hidden "
-              onChange={(e) => setPdf(e.target.files[0])}
-              required
-            />
-            <button className="text-white w-full p-1 rounded-md bg-blue-700 mt-3">
-              Apply Job
-            </button>
-          </form>
-        </div>
-      )}
     </div>
   );
 };
 
 export default JobDetails;
-// formData.append("candidate", candidateEmail);
-// formData.append("companyEmail", companyEmail);
-// formData.append("jobId", jobId);
-// formData.append("pdf", pdf);
-// formData.append("applyDate", applyDate);
+

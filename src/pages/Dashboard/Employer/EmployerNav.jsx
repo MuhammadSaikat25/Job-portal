@@ -22,6 +22,17 @@ const EmployerNav = () => {
           className={({ isActive }) =>
             isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
           }
+          to={`/dashboard/companyProfile`}
+        >
+          <span className="flex items-center gap-2">
+            <IoSendOutline></IoSendOutline>
+            <h1>Create company</h1>
+          </span>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "bg-blue-200 text-blue-600 p-1 rounded" : ""
+          }
           to={`/dashboard/postJob`}
         >
           <span className="flex items-center gap-2">
